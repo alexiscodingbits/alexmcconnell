@@ -28,8 +28,8 @@ const interests = [
     detail: "English, Irish, German, and self-taught Spanish.",
   },
   {
-    label: "Mentoring",
-    detail: "Enjoy helping others learn — from rugby to code.",
+    label: "Student2Student Mentor TCD",
+    detail: "Selected as a Peer Mentor, managing the academic and social onboarding of students, demonstrating strong communication and relationship-building skills.",
   },
 ];
 
