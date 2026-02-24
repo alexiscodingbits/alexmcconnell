@@ -5,9 +5,6 @@ export default function Footer() {
         <p className="font-[family-name:var(--font-heading)] text-xs text-slate/40 tracking-wider">
           Alex McConnell &copy; {new Date().getFullYear()}
         </p>
-        <p className="font-[family-name:var(--font-heading)] text-[10px] text-slate/25 tracking-wider">
-          Designed &amp; built from scratch
-        </p>
       </div>
     </footer>
   );
