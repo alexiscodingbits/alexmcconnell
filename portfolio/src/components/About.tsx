@@ -62,7 +62,7 @@ export default function About() {
                   Languages
                 </p>
                 <p className="text-sm text-slate-light/90">
-                  English, Irish, German, Spanish
+                  Gaeilge, English, German, Spanish
                 </p>
               </div>
             </div>
