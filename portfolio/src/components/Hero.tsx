@@ -27,7 +27,7 @@ export default function Hero() {
 
         <div className="animate-fade-up delay-400">
           <p className="font-[family-name:var(--font-body)] text-lg md:text-xl text-slate-light/70 mb-10 max-w-xl mx-auto">
-            Engineering student. Builder. Problem solver.
+            I like to build things.
           </p>
         </div>
 
