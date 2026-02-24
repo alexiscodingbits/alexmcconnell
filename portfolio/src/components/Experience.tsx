@@ -3,6 +3,14 @@ import ScrollReveal from "./ScrollReveal";
 
 const experiences = [
   {
+    role: "Director of AI Automation Solutions",
+    company: "Media Sphere Solutions",
+    period: "Aug 2025 — Present",
+    tag: "Current",
+    description:
+      "Leading the design and deployment of end-to-end AI automation solutions — intelligent voice agents for inbound reception and outbound lead qualification via Twilio, and autonomous AI-powered website auditing tools with actionable SEO performance scoring. Driving operational efficiency and scalable client acquisition for partner businesses.",
+  },
+  {
     role: "Global Corporate & Investment Banking — Spring Insight",
     company: "Bank of America",
     period: "April 2026",
