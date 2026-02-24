@@ -32,6 +32,15 @@ const projects = [
     link: "https://engmang.ie",
   },
   {
+    title: "Large-Scale SEO Intelligence Pipeline",
+    subtitle: "Data Engineering",
+    description:
+      "Designed and built a distributed data pipeline on Databricks that ingests and processes 10M+ web pages from Common Crawl (AWS S3) using PySpark, extracting structured SEO signals — meta tags, canonical tags, HTTPS adoption, and link profiles. Implemented data cleaning, URL standardisation, and feature engineering to compute weighted SEO scores across 500k+ domains benchmarked by TLD and industry. Built a client comparison tool that scores any domain against web-wide benchmarks, delivering actionable audit reports. Optimised storage and query performance with Parquet columnar format.",
+    tech: ["PySpark", "Databricks", "Apache Spark", "AWS S3", "Parquet"],
+    annotation: "// 10M+ pages, 500k+ domains",
+    link: null,
+  },
+  {
     title: "Black Hole Visualisation",
     subtitle: "Graphics & Physics",
     description:
