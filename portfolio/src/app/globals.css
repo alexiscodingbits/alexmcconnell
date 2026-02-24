@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-navy: #0f1729;
+  --color-navy-light: #1a2744;
+  --color-navy-mid: #243352;
+  --color-blueprint: #2a4a7f;
+  --color-grid: #1e3a5f;
+  --color-copper: #d4884a;
+  --color-copper-light: #e8a76a;
+  --color-slate: #94a3b8;
+  --color-slate-light: #cbd5e1;
+  --color-off-white: #e8ecf0;
+  --font-heading: "JetBrains Mono", "Space Mono", monospace;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+/* Blueprint grid background */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-navy);
+  color: var(--color-off-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* Blueprint grid pattern */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(30, 58, 95, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 58, 95, 0.3) 1px, transparent 1px),
+    linear-gradient(rgba(30, 58, 95, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 58, 95, 0.15) 1px, transparent 1px);
+  background-size:
+    100px 100px,
+    100px 100px,
+    20px 20px,
+    20px 20px;
+}
+
+/* Section divider - dimension line style */
+.dimension-line {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto;
+  max-width: 200px;
+}
+
+.dimension-line::before,
+.dimension-line::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-copper);
+}
+
+.dimension-line::before {
+  background: linear-gradient(90deg, transparent, var(--color-copper));
+}
+
+.dimension-line::after {
+  background: linear-gradient(90deg, var(--color-copper), transparent);
+}
+
+/* Draw-in animation */
+@keyframes drawLine {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawIn {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-draw-in {
+  animation: drawIn 0.8s ease-out forwards;
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Staggered delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+
+/* Scroll-triggered animation base */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ruler progress indicator */
+.ruler-track {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 24px;
+  height: 100vh;
+  z-index: 50;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .ruler-track {
+    display: none;
+  }
+}
+
+/* Annotation tooltip */
+.annotation-tooltip {
+  position: absolute;
+  background: var(--color-navy-light);
+  border: 1px solid var(--color-copper);
+  padding: 8px 12px;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  color: var(--color-copper-light);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.annotation-trigger:hover .annotation-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Technical annotation marks */
+.tech-mark::before {
+  content: "//";
+  color: var(--color-copper);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  margin-right: 6px;
+  opacity: 0.7;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy-mid);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-blueprint);
+}
