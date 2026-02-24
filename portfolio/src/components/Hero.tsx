@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const BlackHole = dynamic(() => import("./BlackHole"), { ssr: false });
 
@@ -44,6 +45,17 @@ export default function Hero() {
           >
             Get in Touch
           </a>
+        </div>
+
+        <div className="animate-fade-up delay-600 mt-10 flex justify-center">
+          <Image
+            src="/profile.png"
+            alt="Alex McConnell"
+            width={220}
+            height={220}
+            className="object-contain"
+            priority
+          />
         </div>
       </div>
 
