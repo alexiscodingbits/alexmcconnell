@@ -25,7 +25,7 @@ const interests = [
   },
   {
     label: "Languages",
-    detail: "English, Irish, German, and self-taught Spanish.",
+    detail: "Gaeilge, English, German, and self-taught Spanish.",
   },
   {
     label: "Student2Student Mentor TCD",
@@ -46,7 +46,7 @@ export default function Skills() {
               <p className="font-[family-name:var(--font-heading)] text-xs text-copper/70 tracking-wider uppercase mb-5">
                 Technical
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mb-8">
                 {technicalSkills.map((s) => (
                   <span
                     key={s}
@@ -55,6 +55,41 @@ export default function Skills() {
                     {s}
                   </span>
                 ))}
+              </div>
+
+              {/* Spotify embeds */}
+              <div className="space-y-5">
+                <div>
+                  <p className="font-[family-name:var(--font-heading)] text-xs text-copper/70 tracking-wider uppercase mb-3">
+                    // current playlist
+                  </p>
+                  <div className="border border-grid/40 overflow-hidden">
+                    <iframe
+                      src="https://open.spotify.com/embed/playlist/3uPqNpJ2n7IV43nCjfTREO?utm_source=generator&theme=0"
+                      width="100%"
+                      height="152"
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      loading="lazy"
+                      style={{ border: 0 }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <p className="font-[family-name:var(--font-heading)] text-xs text-copper/70 tracking-wider uppercase mb-3">
+                    // current favourite
+                  </p>
+                  <div className="border border-grid/40 overflow-hidden">
+                    <iframe
+                      src="https://open.spotify.com/embed/track/5pkd9ib1RgbkAd1R9bIOCa?utm_source=generator&theme=0"
+                      width="100%"
+                      height="152"
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      loading="lazy"
+                      style={{ border: 0 }}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </ScrollReveal>
