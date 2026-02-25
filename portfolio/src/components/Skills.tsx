@@ -154,7 +154,7 @@ export default function Skills() {
                       <span className={`text-sm font-medium transition-colors ${item.image ? "cursor-default text-off-white hover:text-copper-light" : "text-off-white"}`}>
                         {item.label}
                       </span>
-                      {item.image && <HoverBadge />}
+                      {item.image && <HoverBadge audio={item.label === "Rugby"} />}
                     </div>
                     <p className="text-sm text-slate-light/55 ml-5 mt-0.5">
                       {item.detail}

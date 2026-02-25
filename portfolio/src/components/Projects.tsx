@@ -260,7 +260,7 @@ export default function Projects() {
                       <p className="font-[family-name:var(--font-heading)] text-xs text-slate/60 tracking-wider uppercase">
                         {p.subtitle}
                       </p>
-                      {(p.hoverVideos || p.hoverPhotos || p.hoverSmartCert) && <HoverBadge />}
+                      {(p.hoverVideos || p.hoverPhotos || p.hoverSmartCert) && <HoverBadge audio={p.hoverVideos} />}
                     </div>
                   </div>
 
