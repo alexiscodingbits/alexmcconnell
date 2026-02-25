@@ -1,7 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
+
+const blackHoleVideos = [
+  { label: "V1", src: "/BlackHole_V1.mov" },
+  { label: "V2", src: "/BlackHole_V2.mov" },
+  { label: "V3", src: "/BlackHole_V3.mov" },
+];
 
 const projects = [
   {
@@ -12,6 +19,7 @@ const projects = [
     tech: ["Next.js", "AI/LLM", "Web Dev", "InfoSec"],
     annotation: "// active users, real product",
     link: "https://smartcert.ie",
+    hoverVideos: false,
   },
   {
     title: "EngMang.ie",
@@ -30,6 +38,7 @@ const projects = [
     ],
     annotation: "// full-stack, production-grade",
     link: "https://engmang.ie",
+    hoverVideos: false,
   },
   {
     title: "Large-Scale SEO Intelligence Pipeline",
@@ -39,6 +48,7 @@ const projects = [
     tech: ["PySpark", "Databricks", "Apache Spark", "AWS S3", "Parquet"],
     annotation: "// 10M+ pages, 500k+ domains",
     link: null,
+    hoverVideos: false,
   },
   {
     title: "Black Hole Visualisation",
@@ -48,10 +58,78 @@ const projects = [
     tech: ["Python", "OpenGL", "GLSL", "Ray Marching"],
     annotation: "// custom shaders, real physics",
     link: null,
+    hoverVideos: true,
   },
 ];
 
+function BlackHolePopup({ visible }: { visible: boolean }) {
+  return (
+    <div
+      className="pointer-events-none absolute left-1/2 -translate-x-1/2 z-50 transition-all duration-300"
+      style={{
+        bottom: "calc(100% + 16px)",
+        opacity: visible ? 1 : 0,
+        transform: `translateX(-50%) translateY(${visible ? "0px" : "10px"}) scale(${visible ? 1 : 0.97})`,
+      }}
+    >
+      <div className="flex items-center gap-3">
+        {blackHoleVideos.map((v, i) => (
+          <div key={v.label} className="flex items-center gap-3">
+            {/* Video with copper frame */}
+            <div
+              className="rounded-2xl p-[3px] shrink-0"
+              style={{
+                background: "linear-gradient(135deg, #d4884a, #e8a76a, #9a5f2a, #d4884a)",
+                boxShadow: "0 8px 32px rgba(212,136,74,0.3), 0 2px 8px rgba(0,0,0,0.6)",
+              }}
+            >
+              <div className="rounded-2xl overflow-hidden bg-black">
+                <video
+                  src={v.src}
+                  width={180}
+                  height={120}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="block rounded-2xl object-cover"
+                  style={{ width: 180, height: 120 }}
+                />
+              </div>
+              {/* Label */}
+              <p className="text-center font-[family-name:var(--font-heading)] text-[10px] text-copper/80 tracking-widest pt-1 pb-0.5">
+                {v.label}
+              </p>
+            </div>
+
+            {/* Arrow between videos */}
+            {i < blackHoleVideos.length - 1 && (
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                className="shrink-0"
+              >
+                <path
+                  d="M4 10H16M16 10L11 5M16 10L11 15"
+                  stroke="#d4884a"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Projects() {
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+
   return (
     <section id="projects" className="relative z-10 py-24 md:py-32">
       <div className="max-w-5xl mx-auto px-6">
@@ -60,12 +138,21 @@ export default function Projects() {
         <div className="space-y-8">
           {projects.map((p, i) => (
             <ScrollReveal key={p.title} delay={i * 120}>
-              <div className="group relative border border-grid/40 hover:border-copper/40 transition-all duration-300 p-6 md:p-8 bg-navy-light/30 hover:bg-navy-light/50">
+              <div
+                className="group relative border border-grid/40 hover:border-copper/40 transition-all duration-300 p-6 md:p-8 bg-navy-light/30 hover:bg-navy-light/50"
+                onMouseEnter={() => p.hoverVideos && setHoveredProject(p.title)}
+                onMouseLeave={() => setHoveredProject(null)}
+              >
                 {/* Corner marks */}
                 <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-copper/40 group-hover:border-copper/70 transition-colors" />
                 <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-copper/40 group-hover:border-copper/70 transition-colors" />
                 <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-copper/40 group-hover:border-copper/70 transition-colors" />
                 <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-copper/40 group-hover:border-copper/70 transition-colors" />
+
+                {/* Black hole video popup */}
+                {p.hoverVideos && (
+                  <BlackHolePopup visible={hoveredProject === p.title} />
+                )}
 
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
                   <div>
@@ -77,7 +164,6 @@ export default function Projects() {
                     </p>
                   </div>
 
-                  {/* Annotation tooltip */}
                   <span className="font-[family-name:var(--font-heading)] text-[11px] text-copper/0 group-hover:text-copper/70 transition-all duration-300 whitespace-nowrap md:mt-1">
                     {p.annotation}
                   </span>
@@ -104,14 +190,7 @@ export default function Projects() {
                       className="ml-auto font-[family-name:var(--font-heading)] text-xs text-copper/60 hover:text-copper transition-colors flex items-center gap-1"
                     >
                       Visit
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      >
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
                         <path d="M3 9L9 3M9 3H4M9 3V8" />
                       </svg>
                     </a>
