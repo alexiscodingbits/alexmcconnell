@@ -62,10 +62,10 @@ export default function About() {
                   Secondary
                 </p>
                 <p className="text-sm text-slate-light/90">
-                  Leaving Certificate — 613 / 625
+                  Leaving Certificate — 613 / 625 Points
                 </p>
                 <p className="text-sm text-slate/60">
-                  St. Michael&apos;s College, 2023
+                  98th percentile &mdash; St. Michael&apos;s College, 2023
                 </p>
               </div>
               <div className="h-px bg-grid/40" />
