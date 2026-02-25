@@ -123,8 +123,23 @@ export default function Skills() {
                   <div
                     key={item.label}
                     className="group relative"
-                    onMouseEnter={() => item.image && setHovered(item.label)}
-                    onMouseLeave={() => setHovered(null)}
+                    onMouseEnter={() => {
+                      if (!item.image) return;
+                      setHovered(item.label);
+                      if (item.label === "Rugby") {
+                        const src = rugbySounds[Math.floor(Math.random() * rugbySounds.length)];
+                        audioRef.current = new Audio(src);
+                        audioRef.current.play().catch(() => {});
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      setHovered(null);
+                      if (audioRef.current) {
+                        audioRef.current.pause();
+                        audioRef.current.currentTime = 0;
+                        audioRef.current = null;
+                      }
+                    }}
                   >
                     <div className="flex items-baseline gap-2">
                       <span className="font-[family-name:var(--font-heading)] text-xs text-copper/50">
