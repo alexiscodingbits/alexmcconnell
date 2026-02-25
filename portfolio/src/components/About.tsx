@@ -22,7 +22,7 @@ export default function About() {
 
               </p>
               <p>
-                Favourite Quotes:
+                Some Favourite Quotes:
               </p>
               <p>
                 "Do not be timid and squeamish about your actions. All life is an experiment. The more experiments you make the better." — Ralph Waldo Emerson
