@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
 
 const blackHoleVideos = [
-  { label: "V1", src: "/BlackHole_V1.mov" },
-  { label: "V2", src: "/BlackHole_V2.mov" },
-  { label: "V3", src: "/BlackHole_V3.mov" },
+  { label: "V1", src: "/blackhole_v1.mov" },
+  { label: "V2", src: "/blackhole_v2.mov" },
+  { label: "V3", src: "/blackhole_v3.mov" },
 ];
 
 const projects = [
@@ -63,6 +63,20 @@ const projects = [
 ];
 
 function BlackHolePopup({ visible }: { visible: boolean }) {
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  useEffect(() => {
+    videoRefs.current.forEach((vid) => {
+      if (!vid) return;
+      if (visible) {
+        vid.play().catch(() => {});
+      } else {
+        vid.pause();
+        vid.currentTime = 0;
+      }
+    });
+  }, [visible]);
+
   return (
     <div
       className="pointer-events-none absolute left-1/2 -translate-x-1/2 z-50 transition-all duration-300"
@@ -72,9 +86,9 @@ function BlackHolePopup({ visible }: { visible: boolean }) {
         transform: `translateX(-50%) translateY(${visible ? "0px" : "10px"}) scale(${visible ? 1 : 0.97})`,
       }}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-6">
         {blackHoleVideos.map((v, i) => (
-          <div key={v.label} className="flex items-center gap-3">
+          <div key={v.label} className="flex items-center gap-6">
             {/* Video with copper frame */}
             <div
               className="rounded-2xl p-[3px] shrink-0"
@@ -85,18 +99,16 @@ function BlackHolePopup({ visible }: { visible: boolean }) {
             >
               <div className="rounded-2xl overflow-hidden bg-black">
                 <video
+                  ref={(el) => { videoRefs.current[i] = el; }}
                   src={v.src}
-                  width={180}
-                  height={120}
-                  autoPlay
                   loop
                   muted
                   playsInline
+                  preload="auto"
                   className="block rounded-2xl object-cover"
-                  style={{ width: 180, height: 120 }}
+                  style={{ width: 200, height: 130 }}
                 />
               </div>
-              {/* Label */}
               <p className="text-center font-[family-name:var(--font-heading)] text-[10px] text-copper/80 tracking-widest pt-1 pb-0.5">
                 {v.label}
               </p>
@@ -104,15 +116,9 @@ function BlackHolePopup({ visible }: { visible: boolean }) {
 
             {/* Arrow between videos */}
             {i < blackHoleVideos.length - 1 && (
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                className="shrink-0"
-              >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="shrink-0">
                 <path
-                  d="M4 10H16M16 10L11 5M16 10L11 15"
+                  d="M5 12H19M19 12L13 6M19 12L13 18"
                   stroke="#d4884a"
                   strokeWidth="1.5"
                   strokeLinecap="round"
