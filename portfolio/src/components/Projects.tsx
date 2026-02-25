@@ -184,7 +184,7 @@ function BlackHolePopup({ visible }: { visible: boolean }) {
                   ref={(el) => { videoRefs.current[i] = el; }}
                   src={v.src}
                   loop
-                  muted
+                  muted={v.muted}
                   playsInline
                   preload="auto"
                   className="block rounded-2xl object-cover"
