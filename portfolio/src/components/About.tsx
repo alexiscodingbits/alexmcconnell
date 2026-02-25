@@ -11,10 +11,8 @@ export default function About() {
           <ScrollReveal delay={100}>
             <div className="space-y-5 text-slate-light/80 leading-relaxed">
               <p>
-                I&apos;m an Engineering with Management student at Trinity College Dublin,
-                having previously studied Computer Science at UCD. I sit at the
-                intersection of technology, finance, and building things that matter &mdash;
-                which is exactly where I like to be.
+                Hi!, I&apos;m Alex, an Engineering with Management student at Trinity College Dublin,
+                having previously studied Computer Science at UCD. I have a passion for building, especially when those products have an impact on the world.
               </p>
               <p>
                 When I&apos;m not writing code or modelling spreadsheets, you&apos;ll find me
@@ -22,6 +20,7 @@ export default function About() {
                 piano or guitar, or attempting to improve my Spanish. I also coached
                 rugby at school level for a few years, which taught me more about
                 communication and patience than any module ever has.
+
               </p>
               <p>
                 I believe the best way to learn something is to build it. That philosophy
