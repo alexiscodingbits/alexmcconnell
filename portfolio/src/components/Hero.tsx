@@ -47,7 +47,20 @@ export default function Hero() {
           </a>
         </div>
 
-        <div className="animate-fade-up delay-600 mt-10 flex justify-center">
+        <div className="animate-fade-up delay-600 mt-8 flex justify-center">
+          <div
+            className="font-[family-name:var(--font-heading)] text-[11px] tracking-wide px-4 py-2 rounded-lg text-center max-w-sm"
+            style={{
+              background: "rgba(212,136,74,0.1)",
+              border: "1px solid rgba(212,136,74,0.25)",
+              color: "rgba(212,136,74,0.7)",
+            }}
+          >
+            👋 Anytime you see a <span style={{ background: "rgba(212,136,74,0.2)", border: "1px solid rgba(212,136,74,0.35)", borderRadius: "4px", padding: "0px 6px" }}>hover me!</span> badge, hover over it — and 🔊 turn up your volume for maximum goofiness
+          </div>
+        </div>
+
+        <div className="animate-fade-up delay-600 mt-6 flex justify-center">
           <div
             className="rounded-full p-[2px] shrink-0"
             style={{
