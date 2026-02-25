@@ -40,7 +40,7 @@ export default function About() {
                   Education
                 </p>
                 <p className="text-sm text-slate-light/90">
-                  B.A.I. Engineering with Management
+                  M.Eng Engineering with Management
                 </p>
                 <p className="text-sm text-slate/60">
                   Trinity College Dublin
