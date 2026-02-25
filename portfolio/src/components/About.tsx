@@ -59,6 +59,18 @@ export default function About() {
               <div className="h-px bg-grid/40" />
               <div>
                 <p className="font-[family-name:var(--font-heading)] text-xs text-copper/70 tracking-wider uppercase mb-2">
+                  Secondary
+                </p>
+                <p className="text-sm text-slate-light/90">
+                  Leaving Certificate — 613 / 625
+                </p>
+                <p className="text-sm text-slate/60">
+                  St. Michael&apos;s College, 2023
+                </p>
+              </div>
+              <div className="h-px bg-grid/40" />
+              <div>
+                <p className="font-[family-name:var(--font-heading)] text-xs text-copper/70 tracking-wider uppercase mb-2">
                   Languages
                 </p>
                 <p className="text-sm text-slate-light/90">
