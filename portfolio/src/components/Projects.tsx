@@ -13,9 +13,9 @@ const engMangPhotos = [
 const smartCertPhoto = "/smart_cert_photo.png";
 
 const blackHoleVideos = [
-  { label: "V1", src: "/blackhole_v1.mov" },
-  { label: "V2", src: "/blackhole_v2.mov" },
-  { label: "V3", src: "/blackhole_v3.mov" },
+  { label: "V1", src: "/blackhole_v1.mov", muted: true },
+  { label: "V2", src: "/blackhole_v2.mov", muted: true },
+  { label: "V3", src: "/blackhole_v3.mp4", muted: false },
 ];
 
 const projects = [
