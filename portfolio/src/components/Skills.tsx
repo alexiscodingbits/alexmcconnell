@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
 
@@ -16,24 +20,29 @@ const technicalSkills = [
 const interests = [
   {
     label: "Rugby",
-    detail:
-      "Old Belvedere RFC. UCD McCorry Cup winner. Coached at school level.",
+    detail: "Old Belvedere RFC. UCD McCorry Cup winner. Coached at school level.",
+    image: "/ucd_rugby_photo.jpg",
   },
   {
     label: "Music",
     detail: "Self-taught piano and guitar.",
+    image: null,
   },
   {
     label: "Languages",
     detail: "Gaeilge, English, German, and self-taught Spanish.",
+    image: null,
   },
   {
     label: "Student2Student Mentor TCD",
     detail: "Selected as a Peer Mentor, managing the academic and social onboarding of students, demonstrating strong communication and relationship-building skills.",
+    image: null,
   },
 ];
 
 export default function Skills() {
+  const [hovered, setHovered] = useState<string | null>(null);
+
   return (
     <section id="skills" className="relative z-10 py-24 md:py-32">
       <div className="max-w-4xl mx-auto px-6">
@@ -102,18 +111,52 @@ export default function Skills() {
               </p>
               <div className="space-y-4">
                 {interests.map((item) => (
-                  <div key={item.label} className="group">
+                  <div
+                    key={item.label}
+                    className="group relative"
+                    onMouseEnter={() => item.image && setHovered(item.label)}
+                    onMouseLeave={() => setHovered(null)}
+                  >
                     <div className="flex items-baseline gap-2">
                       <span className="font-[family-name:var(--font-heading)] text-xs text-copper/50">
                         //
                       </span>
-                      <span className="text-sm text-off-white font-medium">
+                      <span className={`text-sm font-medium transition-colors ${item.image ? "cursor-default text-off-white hover:text-copper-light" : "text-off-white"}`}>
                         {item.label}
                       </span>
                     </div>
                     <p className="text-sm text-slate-light/55 ml-5 mt-0.5">
                       {item.detail}
                     </p>
+
+                    {/* Hover photo */}
+                    {item.image && (
+                      <div
+                        className="pointer-events-none absolute left-0 -top-48 z-50 transition-all duration-300"
+                        style={{
+                          opacity: hovered === item.label ? 1 : 0,
+                          transform: hovered === item.label ? "translateY(0) scale(1)" : "translateY(8px) scale(0.97)",
+                        }}
+                      >
+                        <div
+                          className="rounded-2xl p-[3px]"
+                          style={{
+                            background: "linear-gradient(135deg, #d4884a, #e8a76a, #9a5f2a, #d4884a)",
+                            boxShadow: "0 8px 32px rgba(212,136,74,0.3), 0 2px 8px rgba(0,0,0,0.5)",
+                          }}
+                        >
+                          <div className="rounded-2xl overflow-hidden">
+                            <Image
+                              src={item.image}
+                              alt="Rugby photo"
+                              width={240}
+                              height={160}
+                              className="object-cover block rounded-2xl"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
