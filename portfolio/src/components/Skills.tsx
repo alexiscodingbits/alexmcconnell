@@ -42,6 +42,11 @@ const interests = [
     image: null,
   },
   {
+    label: "Maths Tutor",
+    detail: "Passionate about mathematics and find teaching it incredibly rewarding. Tutor college, Leaving Cert, and Junior Cert students.",
+    image: null,
+  },
+  {
     label: "Student2Student Mentor TCD",
     detail: "Selected as a Peer Mentor, managing the academic and social onboarding of students, demonstrating strong communication and relationship-building skills.",
     image: null,
