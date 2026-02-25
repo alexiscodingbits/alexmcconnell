@@ -48,20 +48,23 @@ export default function Hero() {
         </div>
 
         <div className="animate-fade-up delay-600 mt-10 flex justify-center">
-          <div className="relative p-1 border border-copper/60" style={{ boxShadow: "0 0 0 1px rgba(212,136,74,0.2), inset 0 0 0 1px rgba(212,136,74,0.1)" }}>
-            {/* Corner marks */}
-            <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-copper" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-copper" />
-            <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-copper" />
-            <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-copper" />
-            <Image
-              src="/Profile.png"
-              alt="Alex McConnell"
-              width={220}
-              height={220}
-              className="object-contain block"
-              priority
-            />
+          <div
+            className="rounded-full p-[3px]"
+            style={{
+              background: "linear-gradient(135deg, #d4884a, #e8a76a, #9a5f2a, #d4884a)",
+              boxShadow: "0 0 20px rgba(212,136,74,0.25), 0 0 40px rgba(212,136,74,0.1)",
+            }}
+          >
+            <div className="rounded-full overflow-hidden">
+              <Image
+                src="/Profile.png"
+                alt="Alex McConnell"
+                width={220}
+                height={220}
+                className="object-cover block rounded-full"
+                priority
+              />
+            </div>
           </div>
         </div>
       </div>
