@@ -10,6 +10,8 @@ const engMangPhotos = [
   { src: "/eng_mang_photo2.png", alt: "EngMang screenshot 2" },
 ];
 
+const smartCertPhoto = "/smart_cert_photo.png";
+
 const blackHoleVideos = [
   { label: "V1", src: "/blackhole_v1.mov" },
   { label: "V2", src: "/blackhole_v2.mov" },
@@ -27,6 +29,7 @@ const projects = [
     link: "https://smartcert.ie",
     hoverVideos: false,
     hoverPhotos: false,
+    hoverSmartCert: true,
   },
   {
     title: "EngMang.ie",
@@ -71,6 +74,38 @@ const projects = [
     hoverPhotos: false,
   },
 ];
+
+function SmartCertPopup({ visible }: { visible: boolean }) {
+  return (
+    <div
+      className="pointer-events-none absolute left-1/2 -translate-x-1/2 z-50 transition-all duration-300"
+      style={{
+        bottom: "calc(100% + 16px)",
+        opacity: visible ? 1 : 0,
+        transform: `translateX(-50%) translateY(${visible ? "0px" : "10px"}) scale(${visible ? 1 : 0.97})`,
+      }}
+    >
+      <div
+        className="rounded-2xl p-[3px] shrink-0"
+        style={{
+          background: "linear-gradient(135deg, #d4884a, #e8a76a, #9a5f2a, #d4884a)",
+          boxShadow: "0 8px 32px rgba(212,136,74,0.3), 0 2px 8px rgba(0,0,0,0.6)",
+        }}
+      >
+        <div className="rounded-2xl overflow-hidden">
+          <Image
+            src={smartCertPhoto}
+            alt="SmartCert screenshot"
+            width={300}
+            height={200}
+            className="block rounded-2xl object-cover"
+            style={{ width: 300, height: 200 }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function EngMangPopup({ visible }: { visible: boolean }) {
   return (
@@ -193,7 +228,7 @@ export default function Projects() {
             <ScrollReveal key={p.title} delay={i * 120}>
               <div
                 className="group relative border border-grid/40 hover:border-copper/40 transition-all duration-300 p-6 md:p-8 bg-navy-light/30 hover:bg-navy-light/50"
-                onMouseEnter={() => (p.hoverVideos || p.hoverPhotos) && setHoveredProject(p.title)}
+                onMouseEnter={() => (p.hoverVideos || p.hoverPhotos || p.hoverSmartCert) && setHoveredProject(p.title)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
                 {/* Corner marks */}
@@ -202,6 +237,10 @@ export default function Projects() {
                 <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-copper/40 group-hover:border-copper/70 transition-colors" />
                 <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-copper/40 group-hover:border-copper/70 transition-colors" />
 
+                {/* SmartCert photo popup */}
+                {p.hoverSmartCert && (
+                  <SmartCertPopup visible={hoveredProject === p.title} />
+                )}
                 {/* Black hole video popup */}
                 {p.hoverVideos && (
                   <BlackHolePopup visible={hoveredProject === p.title} />
