@@ -1,8 +1,14 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
+
+const engMangPhotos = [
+  { src: "/eng_mang_photo1.png", alt: "EngMang screenshot 1" },
+  { src: "/eng_mang_photo2.png", alt: "EngMang screenshot 2" },
+];
 
 const blackHoleVideos = [
   { label: "V1", src: "/blackhole_v1.mov" },
@@ -20,6 +26,7 @@ const projects = [
     annotation: "// active users, real product",
     link: "https://smartcert.ie",
     hoverVideos: false,
+    hoverPhotos: false,
   },
   {
     title: "EngMang.ie",
@@ -39,6 +46,7 @@ const projects = [
     annotation: "// full-stack, production-grade",
     link: "https://engmang.ie",
     hoverVideos: false,
+    hoverPhotos: true,
   },
   {
     title: "Large-Scale SEO Intelligence Pipeline",
@@ -49,6 +57,7 @@ const projects = [
     annotation: "// 10M+ pages, 500k+ domains",
     link: null,
     hoverVideos: false,
+    hoverPhotos: false,
   },
   {
     title: "Black Hole Visualisation",
@@ -59,8 +68,46 @@ const projects = [
     annotation: "// custom shaders, real physics",
     link: null,
     hoverVideos: true,
+    hoverPhotos: false,
   },
 ];
+
+function EngMangPopup({ visible }: { visible: boolean }) {
+  return (
+    <div
+      className="pointer-events-none absolute left-1/2 -translate-x-1/2 z-50 transition-all duration-300"
+      style={{
+        bottom: "calc(100% + 16px)",
+        opacity: visible ? 1 : 0,
+        transform: `translateX(-50%) translateY(${visible ? "0px" : "10px"}) scale(${visible ? 1 : 0.97})`,
+      }}
+    >
+      <div className="flex items-center gap-10">
+        {engMangPhotos.map((photo) => (
+          <div
+            key={photo.src}
+            className="rounded-2xl p-[3px] shrink-0"
+            style={{
+              background: "linear-gradient(135deg, #d4884a, #e8a76a, #9a5f2a, #d4884a)",
+              boxShadow: "0 8px 32px rgba(212,136,74,0.3), 0 2px 8px rgba(0,0,0,0.6)",
+            }}
+          >
+            <div className="rounded-2xl overflow-hidden">
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                width={240}
+                height={160}
+                className="block rounded-2xl object-cover"
+                style={{ width: 240, height: 160 }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function BlackHolePopup({ visible }: { visible: boolean }) {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -146,7 +193,7 @@ export default function Projects() {
             <ScrollReveal key={p.title} delay={i * 120}>
               <div
                 className="group relative border border-grid/40 hover:border-copper/40 transition-all duration-300 p-6 md:p-8 bg-navy-light/30 hover:bg-navy-light/50"
-                onMouseEnter={() => p.hoverVideos && setHoveredProject(p.title)}
+                onMouseEnter={() => (p.hoverVideos || p.hoverPhotos) && setHoveredProject(p.title)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
                 {/* Corner marks */}
@@ -158,6 +205,10 @@ export default function Projects() {
                 {/* Black hole video popup */}
                 {p.hoverVideos && (
                   <BlackHolePopup visible={hoveredProject === p.title} />
+                )}
+                {/* EngMang photo popup */}
+                {p.hoverPhotos && (
+                  <EngMangPopup visible={hoveredProject === p.title} />
                 )}
 
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
