@@ -49,19 +49,21 @@ export default function Hero() {
 
         <div className="animate-fade-up delay-600 mt-10 flex justify-center">
           <div
-            className="rounded-full p-[3px]"
+            className="rounded-full p-[2px] shrink-0"
             style={{
+              width: 224,
+              height: 224,
               background: "linear-gradient(135deg, #d4884a, #e8a76a, #9a5f2a, #d4884a)",
-              boxShadow: "0 0 20px rgba(212,136,74,0.25), 0 0 40px rgba(212,136,74,0.1)",
+              boxShadow: "0 0 12px rgba(212,136,74,0.2)",
             }}
           >
-            <div className="rounded-full overflow-hidden">
+            <div className="rounded-full overflow-hidden w-full h-full">
               <Image
                 src="/Profile.png"
                 alt="Alex McConnell"
                 width={220}
                 height={220}
-                className="object-cover block rounded-full"
+                className="object-cover block w-full h-full rounded-full"
                 priority
               />
             </div>
