@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
+import HoverBadge from "./HoverBadge";
 
 const engMangPhotos = [
   { src: "/eng_mang_photo1.png", alt: "EngMang screenshot 1" },
@@ -255,9 +256,12 @@ export default function Projects() {
                     <h3 className="font-[family-name:var(--font-heading)] text-lg md:text-xl text-off-white group-hover:text-copper-light transition-colors">
                       {p.title}
                     </h3>
-                    <p className="font-[family-name:var(--font-heading)] text-xs text-slate/60 tracking-wider uppercase mt-1">
-                      {p.subtitle}
-                    </p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p className="font-[family-name:var(--font-heading)] text-xs text-slate/60 tracking-wider uppercase">
+                        {p.subtitle}
+                      </p>
+                      {(p.hoverVideos || p.hoverPhotos || p.hoverSmartCert) && <HoverBadge />}
+                    </div>
                   </div>
 
                   <span className="font-[family-name:var(--font-heading)] text-[11px] text-copper/0 group-hover:text-copper/70 transition-all duration-300 whitespace-nowrap md:mt-1">

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
+import HoverBadge from "./HoverBadge";
 
 const experiences = [
   {
@@ -158,6 +159,7 @@ export default function Experience() {
                     <span className="font-[family-name:var(--font-heading)] text-xs text-slate/50">
                       {exp.period}
                     </span>
+                    {exp.hoverManna && <HoverBadge />}
                   </div>
 
                   <p className="text-sm text-slate-light/65 leading-relaxed max-w-xl">

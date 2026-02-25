@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
+import HoverBadge from "./HoverBadge";
 
 const technicalSkills = [
   "Python",
@@ -153,18 +154,7 @@ export default function Skills() {
                       <span className={`text-sm font-medium transition-colors ${item.image ? "cursor-default text-off-white hover:text-copper-light" : "text-off-white"}`}>
                         {item.label}
                       </span>
-                      {item.image && (
-                        <span
-                          className="font-[family-name:var(--font-heading)] text-[10px] tracking-wide px-2 py-0.5 rounded"
-                          style={{
-                            background: "rgba(212,136,74,0.15)",
-                            border: "1px solid rgba(212,136,74,0.3)",
-                            color: "rgba(212,136,74,0.75)",
-                          }}
-                        >
-                          👋 hover me!
-                        </span>
-                      )}
+                      {item.image && <HoverBadge />}
                     </div>
                     <p className="text-sm text-slate-light/55 ml-5 mt-0.5">
                       {item.detail}
