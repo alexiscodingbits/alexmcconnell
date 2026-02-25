@@ -15,17 +15,20 @@ export default function About() {
                 having previously studied Computer Science at UCD. I have a passion for building, especially when those products have an impact on the world.
               </p>
               <p>
-                When I&apos;m not writing code or modelling spreadsheets, you&apos;ll find me
-                on the rugby pitch with Old Belvedere RFC, figuring out a new song on
-                piano or guitar, or attempting to improve my Spanish. I also coached
-                rugby at school level for a few years, which taught me more about
-                communication and patience than any module ever has.
-
-              </p>
-              <p>
+              
                 I believe the best way to learn something is to build it. That philosophy
                 has led me from accretion disk shaders to drone delivery software to an
                 EdTech startup, and I&apos;m always looking for the next interesting problem.
+
+              </p>
+              <p>
+                Favourite Quotes:
+              </p>
+              <p>
+                "Do not be timid and squeamish about your actions. All life is an experiment. The more experiments you make the better." — Ralph Waldo Emerson
+              </p>
+              <p>
+                "You have to be burning with an idea, or a problem, or a wrong that you want to right. If you're not passionate enough from the start, you'll never stick it out." — Steve Jobs
               </p>
             </div>
           </ScrollReveal>
