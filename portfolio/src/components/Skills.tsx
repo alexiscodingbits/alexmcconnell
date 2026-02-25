@@ -148,6 +148,11 @@ export default function Skills() {
                       <span className={`text-sm font-medium transition-colors ${item.image ? "cursor-default text-off-white hover:text-copper-light" : "text-off-white"}`}>
                         {item.label}
                       </span>
+                      {item.image && (
+                        <span className="font-[family-name:var(--font-heading)] text-[10px] text-copper/40 tracking-wider">
+                          // hover
+                        </span>
+                      )}
                     </div>
                     <p className="text-sm text-slate-light/55 ml-5 mt-0.5">
                       {item.detail}
