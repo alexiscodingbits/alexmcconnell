@@ -168,9 +168,9 @@ function BlackHolePopup({ visible }: { visible: boolean }) {
         transform: `translateX(-50%) translateY(${visible ? "0px" : "10px"}) scale(${visible ? 1 : 0.97})`,
       }}
     >
-      <div className="flex items-center gap-10">
+      <div className="flex items-center gap-20">
         {blackHoleVideos.map((v, i) => (
-          <div key={v.label} className="flex items-center gap-10">
+          <div key={v.label} className="flex items-center gap-20">
             {/* Video with copper frame */}
             <div
               className="rounded-2xl p-[3px] shrink-0"
