@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import SectionHeading from "./SectionHeading";
 import ScrollReveal from "./ScrollReveal";
@@ -15,6 +15,14 @@ const technicalSkills = [
   "Supabase",
   "OpenGL",
   "AI / LLM",
+];
+
+const rugbySounds = [
+  "/sevennation.mp3",
+  "/gonnaflynow.mp3",
+  "/shippinguptoboston.mp3",
+  "/cantstop.mp3",
+  "/chelsea_dagger.m4a",
 ];
 
 const interests = [
@@ -42,6 +50,7 @@ const interests = [
 
 export default function Skills() {
   const [hovered, setHovered] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   return (
     <section id="skills" className="relative z-10 py-24 md:py-32">
