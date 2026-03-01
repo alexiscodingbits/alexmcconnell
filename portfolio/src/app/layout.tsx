@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import CustomCursor from "@/components/CustomCursor";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-heading",
@@ -34,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${jetbrainsMono.variable} ${inter.variable} antialiased`}>
+        <CustomCursor />
         {children}
       </body>
     </html>

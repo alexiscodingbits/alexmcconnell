@@ -56,7 +56,7 @@ export default function Hero() {
               color: "rgba(212,136,74,0.7)",
             }}
           >
-            👋 Anytime you see a <span style={{ background: "rgba(212,136,74,0.2)", border: "1px solid rgba(212,136,74,0.35)", borderRadius: "4px", padding: "0px 6px" }}>hover me!</span> badge, hover over it — and 🔊 turn up your volume for maximum goofiness
+            👋 Anytime you see a <span style={{ background: "rgba(212,136,74,0.2)", border: "1px solid rgba(212,136,74,0.35)", borderRadius: "4px", padding: "0px 6px" }}>hover me!</span> badge, hover over it — and 🔊 turn up your volume for maximum fun
           </div>
         </div>
 

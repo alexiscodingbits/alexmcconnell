@@ -15,6 +15,13 @@
   --font-body: "Inter", system-ui, sans-serif;
 }
 
+/* Hide default cursor for custom crosshair */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
 /* Blueprint grid background */
 html {
   scroll-behavior: smooth;

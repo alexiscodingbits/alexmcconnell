@@ -19,10 +19,6 @@ const technicalSkills = [
 ];
 
 const rugbySounds = [
-  "/sevennation.mp3",
-  "/gonnaflynow.mp3",
-  "/shippinguptoboston.mp3",
-  "/cantstop.mp3",
   "/chelsea_dagger.m4a",
 ];
 
