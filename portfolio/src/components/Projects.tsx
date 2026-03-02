@@ -67,7 +67,7 @@ const projects = [
     title: "Black Hole Visualisation",
     subtitle: "Graphics & Physics",
     description:
-      "Personal favourite, having a huge interest in physics. Inspired by books such as A Brief History of Time by Stephen Hawking and Black Holes by Brian Cox and Jeff Forshaw. I built interactive real-time black hole renderer using custom GLSL shaders (nerd talk). Implements ray marching (how light moves), gravitational lensing (light gets bendy with gravity), Doppler shifting , and accretion disk physics — all running at interactive frame rates (borderline on some older laptops) on consumer hardware.",
+      "This is a personal favourite. I have a huge interest in physics/astrophysics. Some of my favourite books include A Brief History of Time by Stephen Hawking and Black Holes by Brian Cox and Jeff Forshaw. I built interactive real-time black hole renderer using custom GLSL shaders (nerd talk). Implements ray marching (how light moves), gravitational lensing (light gets bendy with gravity), Doppler shifting , and accretion disk physics — all running at interactive frame rates (borderline on some older laptops) on consumer hardware.",
     tech: ["Python", "OpenGL", "GLSL", "Ray Marching"],
     annotation: "// custom shaders, real physics",
     link: null,

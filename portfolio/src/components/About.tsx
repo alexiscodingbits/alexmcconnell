@@ -11,7 +11,7 @@ export default function About() {
           <ScrollReveal delay={100}>
             <div className="space-y-5 text-slate-light/80 leading-relaxed">
               <p>
-                Hi!, I&apos;m Alex, an Engineering with Management student at Trinity College Dublin,
+                Hi! I&apos;m Alex, an Engineering with Management student at Trinity College Dublin,
                 having previously studied Computer Science at UCD. I have a passion for building, especially when those products have an impact on the world.
               </p>
               <p>
