@@ -61,25 +61,15 @@ export default function Hero() {
         </div>
 
         <div className="animate-fade-up delay-600 mt-6 flex justify-center">
-          <div
-            className="rounded-full p-[2px] shrink-0"
-            style={{
-              width: 224,
-              height: 224,
-              background: "linear-gradient(135deg, #d4884a, #e8a76a, #9a5f2a, #d4884a)",
-              boxShadow: "0 0 12px rgba(212,136,74,0.2)",
-            }}
-          >
-            <div className="rounded-full overflow-hidden w-full h-full">
-              <Image
-                src="/Profile.png"
-                alt="Alex McConnell"
-                width={220}
-                height={220}
-                className="object-cover block w-full h-full rounded-full"
-                priority
-              />
-            </div>
+          <div className="rounded-full overflow-hidden shrink-0" style={{ width: 220, height: 220 }}>
+            <Image
+              src="/Profile.png"
+              alt="Alex McConnell"
+              width={220}
+              height={220}
+              className="object-cover block w-full h-full rounded-full"
+              priority
+            />
           </div>
         </div>
       </div>
