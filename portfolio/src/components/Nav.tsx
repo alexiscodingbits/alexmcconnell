@@ -23,14 +23,14 @@ export default function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-40 px-4 py-3">
       <div
-        className={`mx-auto transition-all duration-300 ease-in-out ${
+        className={`mx-auto rounded-full border transition-all duration-700 ease-in-out ${
           scrolled
-            ? "max-w-2xl bg-navy/80 backdrop-blur-xl border border-grid/50 rounded-full shadow-lg shadow-black/20"
-            : "max-w-6xl bg-transparent"
+            ? "max-w-2xl bg-navy/80 backdrop-blur-xl border-grid/50 shadow-lg shadow-black/20"
+            : "max-w-6xl bg-transparent border-transparent shadow-none"
         }`}
       >
         <div
-          className={`flex items-center justify-between transition-all duration-300 ${
+          className={`flex items-center justify-between transition-all duration-700 ease-in-out ${
             scrolled ? "px-5 h-12" : "px-2 h-14"
           }`}
         >
