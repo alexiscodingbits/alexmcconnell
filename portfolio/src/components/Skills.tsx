@@ -44,6 +44,11 @@ const interests = [
     image: null,
   },
   {
+    label: "Juggling",
+    detail: "Currently working up to 4 balls.",
+    image: null,
+  },
+  {
     label: "Student2Student Mentor TCD",
     detail: "Selected as a Peer Mentor, managing the academic and social onboarding of students, demonstrating strong communication and relationship-building skills.",
     image: null,
@@ -108,6 +113,49 @@ export default function Skills() {
                       loading="lazy"
                       style={{ border: 0 }}
                     />
+                  </div>
+                </div>
+              </div>
+
+              {/* Currently reading */}
+              <div className="mt-8">
+                <p className="font-[family-name:var(--font-heading)] text-xs text-copper/70 tracking-wider uppercase mb-3">
+                  // currently reading
+                </p>
+                <div
+                  className="relative"
+                  onMouseEnter={() => setHovered("reading")}
+                  onMouseLeave={() => setHovered(null)}
+                >
+                  <span className="text-sm text-off-white font-medium cursor-default hover:text-copper-light transition-colors">
+                    1984
+                  </span>
+                  <span className="text-sm text-slate-light/55 ml-1">— George Orwell</span>
+                  <span className="ml-2 inline-block"><HoverBadge /></span>
+                  <div
+                    className="pointer-events-none absolute left-0 -top-64 z-50 transition-all duration-300"
+                    style={{
+                      opacity: hovered === "reading" ? 1 : 0,
+                      transform: hovered === "reading" ? "translateY(0) scale(1)" : "translateY(8px) scale(0.97)",
+                    }}
+                  >
+                    <div
+                      className="rounded-2xl p-[3px]"
+                      style={{
+                        background: "linear-gradient(135deg, #d4884a, #e8a76a, #9a5f2a, #d4884a)",
+                        boxShadow: "0 8px 32px rgba(212,136,74,0.3), 0 2px 8px rgba(0,0,0,0.5)",
+                      }}
+                    >
+                      <div className="rounded-2xl overflow-hidden">
+                        <Image
+                          src="/1984.jpg"
+                          alt="1984 by George Orwell"
+                          width={160}
+                          height={240}
+                          className="object-cover block rounded-2xl"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
