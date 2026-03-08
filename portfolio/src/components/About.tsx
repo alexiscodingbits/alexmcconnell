@@ -16,7 +16,7 @@ export default function About() {
               </p>
               <p>
               
-                I believe the best way to learn something is to build it. That philosophy
+                <span className="font-semibold text-off-white">I believe the best way to learn something is to build it.</span> That philosophy
                 has led me from accretion disk shaders to drone delivery software to an
                 EdTech startup, and I&apos;m always looking for the next interesting problem.
 

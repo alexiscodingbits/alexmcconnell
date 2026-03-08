@@ -132,6 +132,7 @@ export default function Skills() {
                   </span>
                   <span className="text-sm text-slate-light/55 ml-1">— George Orwell</span>
                   <span className="ml-2 inline-block"><HoverBadge /></span>
+                  <p className="text-[11px] text-slate-light/35 mt-1">Last updated: 8th March 2026</p>
                   <div
                     className="pointer-events-none absolute left-0 -top-64 z-50 transition-all duration-300"
                     style={{
