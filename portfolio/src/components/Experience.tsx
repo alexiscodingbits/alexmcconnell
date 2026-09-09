@@ -1,8 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useRef, useState } from "react";
-import HoverBadge from "./HoverBadge";
+import { useEffect, useRef } from "react";
 import SectionHeading from "./SectionHeading";
 
 function YCTag() {
@@ -18,35 +17,40 @@ function YCTag() {
   );
 }
 
-function MannaPopup({ visible }: { visible: boolean }) {
+/* Plays only while it's on screen — no reason to decode video the reader can't see. */
+function MannaMedia() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (visible) {
-      v.play().catch(() => {});
-    } else {
-      v.pause();
-      v.currentTime = 0;
-    }
-  }, [visible]);
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <div className={`pop-card${visible ? " on" : ""}`}>
-      <span className="frame tilt-l">
-        <img src="/manna_logo.jpg" alt="Manna Aero logo" style={{ width: 150 }} />
-      </span>
-      <span className="frame tilt-r">
-        <video ref={videoRef} src="/manna_vid.mp4" loop muted playsInline preload="metadata" style={{ width: 240 }} />
-      </span>
+    <div className="card-photo-stack portrait">
+      <div className="card-photo">
+        <video ref={videoRef} src="/manna_vid.mp4" loop muted playsInline preload="metadata" />
+      </div>
+      <div className="mini-tile">
+        <img src="/manna_logo.jpg" alt="Manna Air Delivery" />
+      </div>
     </div>
   );
 }
 
 export default function Experience() {
-  const [mannaHover, setMannaHover] = useState(false);
-
   return (
     <section id="experience">
       <div className="wrap">
@@ -85,6 +89,9 @@ export default function Experience() {
                 </div>
               </div>
               <div className="pm-stack">
+                <div className="card-photo pm-c">
+                  <img src="/art/provenmetal-site.jpg" alt="The ProvenMetal website" />
+                </div>
                 <div className="card-photo pm-b">
                   <img src="/art/provenmetal-team-us.jpg" alt="ProvenMetal team with US flags by the Bay Bridge" />
                 </div>
@@ -158,18 +165,22 @@ export default function Experience() {
           </div>
 
           {/* Manna */}
-          <div className="card" onMouseEnter={() => setMannaHover(true)} onMouseLeave={() => setMannaHover(false)}>
-            <MannaPopup visible={mannaHover} />
-            <div className="card-top tight">
-              <h3>Software Development Intern</h3>
+          <div className="card">
+            <div className="card-split">
+              <div>
+                <div className="card-top tight">
+                  <h3>Software Development Intern</h3>
+                </div>
+                <div className="sub">
+                  <span className="co">Manna Aero Drone Delivery</span> — May — Sep 2024
+                </div>
+                <p>
+                  Worked on optimising drone delivery operations. Wrote production code that improved system
+                  efficiency and reliability across the delivery pipeline.
+                </p>
+              </div>
+              <MannaMedia />
             </div>
-            <div className="sub">
-              <span className="co">Manna Aero Drone Delivery</span> — May — Sep 2024 <HoverBadge />
-            </div>
-            <p>
-              Worked on optimising drone delivery operations. Wrote production code that improved system
-              efficiency and reliability across the delivery pipeline.
-            </p>
           </div>
         </div>
       </div>

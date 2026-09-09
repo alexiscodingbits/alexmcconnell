@@ -134,7 +134,8 @@ nav { position: fixed; top: 14px; left: 0; right: 0; z-index: 40; display: flex;
 .nav-menu a:last-child { border-bottom: 0; }
 
 /* ---------- hero ---------- */
-.hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 140px 0 80px; }
+/* height follows the content — no forced 100vh, which left dead space above and below */
+.hero { display: flex; align-items: center; justify-content: center; text-align: center; padding: 118px 0 92px; }
 .hero-inner { position: relative; z-index: 1; max-width: 940px; padding: 0 24px; }
 /* name breaks onto two lines only when it can't fit on one */
 @media (min-width: 900px) { h1 .brk { display: none; } }
@@ -180,7 +181,7 @@ h1 .serif { font-weight: 400; letter-spacing: -.02em; color: var(--accent); }
 .hover-badge svg { width: 10px; height: 10px; }
 
 .portrait {
-  margin: 0 auto 30px; width: 248px; border-radius: 18px;
+  margin: 0 auto 26px; width: 298px; border-radius: 20px;
   padding: 3px; background: linear-gradient(135deg, var(--accent), var(--tan));
   box-shadow: 0 8px 32px rgba(217,146,1,.28), 0 2px 8px rgba(26,63,34,.2);
 }
@@ -298,16 +299,30 @@ h1 .serif { font-weight: 400; letter-spacing: -.02em; color: var(--accent); }
   transform: rotate(1.5deg); transition: transform .25s;
 }
 .card-photo img { display: block; width: 100%; height: auto; border-radius: 15px; }
-/* two prints in a loose pile */
-.pm-stack { position: relative; flex: 0 0 340px; height: 335px; }
-.pm-stack .card-photo { position: absolute; width: 280px; margin: 0; }
-.pm-stack .pm-a { top: 0; right: 0; transform: rotate(2deg); z-index: 2; }
-.pm-stack .pm-b { bottom: 0; left: 0; transform: rotate(-3.5deg); z-index: 1; }
-.pm-stack .card-photo:hover { z-index: 3; transform: rotate(0deg) scale(1.03); }
+/* three prints in a loose pile */
+.pm-stack { position: relative; flex: 0 0 358px; height: 400px; }
+.pm-stack .card-photo { position: absolute; width: 274px; margin: 0; }
+.pm-stack .pm-a { top: 0; right: 0; transform: rotate(2deg); z-index: 3; }
+.pm-stack .pm-b { top: 132px; left: 0; transform: rotate(-3.5deg); z-index: 2; }
+.pm-stack .pm-c { bottom: 0; right: 14px; transform: rotate(1.5deg); z-index: 1; }
+.pm-stack .card-photo:hover { z-index: 4; transform: rotate(0deg) scale(1.03); }
 /* photo with a small logo clipping pinned over its corner */
 .card-photo-stack { position: relative; flex: 0 0 300px; align-self: center; margin-right: 6px; }
 .card-photo-stack .card-photo { flex: none; margin-top: 0; }
 .card-photo-stack .card-logo { position: absolute; left: -26px; bottom: -4px; margin: 0; transform: rotate(-4deg); }
+/* portrait media (e.g. the drone clip) sits narrower so the card stays a sane height */
+.card-photo-stack.portrait { flex-basis: 196px; margin-right: 26px; }
+.card-photo-stack.portrait .card-photo { transform: rotate(2deg); }
+.card-photo-stack.portrait video { display: block; width: 100%; height: auto; border-radius: 15px; background: #000; }
+.mini-tile {
+  position: absolute; left: -40px; bottom: -14px; width: 92px;
+  padding: 3px; border-radius: 14px; line-height: 0;
+  background: linear-gradient(135deg, var(--accent), var(--tan));
+  box-shadow: 0 4px 12px rgba(26,63,34,.2), 0 10px 24px rgba(26,63,34,.12);
+  transform: rotate(-5deg); transition: transform .25s;
+}
+.mini-tile:hover { transform: rotate(0deg) translateY(-2px); }
+.mini-tile img { display: block; width: 100%; height: auto; border-radius: 11px; }
 
 /* ---------- projects: two-up grid, click into a README ---------- */
 .proj-grid {
@@ -553,6 +568,6 @@ footer .serif { font-size: 13px; }
 }
 @media (max-width: 480px) {
   .btn-row { flex-direction: column; align-items: stretch; }
-  .hero { padding-top: 110px; }
-  .portrait { width: 200px; }
+  .hero { padding: 100px 0 76px; }
+  .portrait { width: 230px; }
 }
