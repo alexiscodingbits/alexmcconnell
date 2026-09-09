@@ -516,6 +516,7 @@ h1 .serif { font-weight: 400; letter-spacing: -.02em; color: var(--accent); }
 .field .k { font-size: 8.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--accent); }
 .field .v { font-size: 13px; color: var(--ink); overflow-wrap: anywhere; }
 .field .v.unknown { color: var(--accent); }
+.field .note { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
 .field .link { border-bottom: 1px solid transparent; transition: border-color .2s, color .2s; width: fit-content; }
 .field .link:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .stub-row { display: flex; gap: 18px; }

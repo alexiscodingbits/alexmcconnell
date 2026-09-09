@@ -52,8 +52,8 @@ export default function Contact() {
                   <span className="line" />
                 </div>
                 <div className="leg to">
-                  <span className="iata unknown">???</span>
-                  <span className="place">Destination unknown</span>
+                  <span className="iata unknown">YTM</span>
+                  <span className="place">You Tell Me</span>
                 </div>
               </div>
 
@@ -68,11 +68,13 @@ export default function Contact() {
                 </div>
                 <div className="field">
                   <span className="k">Date</span>
-                  <span className="v">10 SEP 2026</span>
+                  <span className="v">TOMORROW</span>
                 </div>
+                {/* airlines skip row 13, and the letter I always — so this seat cannot exist */}
                 <div className="field">
-                  <span className="k">Boarding</span>
-                  <span className="v">Any time</span>
+                  <span className="k">Seat</span>
+                  <span className="v">13I</span>
+                  <span className="note">neither exists</span>
                 </div>
                 <div className="field wide">
                   <span className="k">Email</span>
@@ -119,7 +121,7 @@ export default function Contact() {
                 </div>
                 <div className="field">
                   <span className="k">To</span>
-                  <span className="v unknown">???</span>
+                  <span className="v unknown">YTM</span>
                 </div>
               </div>
               <div className="stub-row">
@@ -129,12 +131,18 @@ export default function Contact() {
                 </div>
                 <div className="field">
                   <span className="k">Seat</span>
-                  <span className="v">1A</span>
+                  <span className="v">13I</span>
                 </div>
               </div>
-              <div className="field">
-                <span className="k">Date</span>
-                <span className="v">10 SEP 2026</span>
+              <div className="stub-row">
+                <div className="field">
+                  <span className="k">Date</span>
+                  <span className="v">TOMORROW</span>
+                </div>
+                <div className="field">
+                  <span className="k">Boarding</span>
+                  <span className="v">Any time</span>
+                </div>
               </div>
               <Barcode className="small" />
             </div>
