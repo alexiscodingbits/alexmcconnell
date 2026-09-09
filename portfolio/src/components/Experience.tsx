@@ -77,6 +77,11 @@ export default function Experience() {
                   company grow to ~$150k, working across every part of the business along the way — sourcing
                   software, internal tooling, customer ops and go-to-market.
                 </p>
+                {/* TODO (Alex): finish this paragraph — see TODO.md */}
+                <p>
+                  The experience led me from hand-assembling printed circuit boards in a garage in Dogpatch,
+                  to overseeing electronics logistics for American drone and defence companies.
+                </p>
                 <div className="chips">
                   <a className="visit" href="https://provenmetal.com" target="_blank" rel="noopener noreferrer">
                     provenmetal.com ↗
