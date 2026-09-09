@@ -39,13 +39,8 @@ function MannaMedia() {
   }, []);
 
   return (
-    <div className="card-photo-stack portrait">
-      <div className="card-photo">
-        <video ref={videoRef} src="/manna_vid.mp4" loop muted playsInline preload="metadata" />
-      </div>
-      <div className="mini-tile">
-        <img src="/manna_logo.jpg" alt="Manna Air Delivery" />
-      </div>
+    <div className="taped-video">
+      <video ref={videoRef} src="/manna_vid.mp4" loop muted playsInline preload="metadata" />
     </div>
   );
 }
@@ -164,7 +159,8 @@ export default function Experience() {
             </p>
           </div>
 
-          {/* Manna */}
+          {/* Manna — logo sits in the card, the portrait clip is taped on over the edge
+              so the card doesn't have to stretch to the height of the video */}
           <div className="card">
             <div className="card-split">
               <div>
@@ -179,8 +175,11 @@ export default function Experience() {
                   efficiency and reliability across the delivery pipeline.
                 </p>
               </div>
-              <MannaMedia />
+              <div className="card-logo tile">
+                <img src="/manna_logo.jpg" alt="Manna Air Delivery" />
+              </div>
             </div>
+            <MannaMedia />
           </div>
         </div>
       </div>

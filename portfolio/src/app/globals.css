@@ -310,19 +310,29 @@ h1 .serif { font-weight: 400; letter-spacing: -.02em; color: var(--accent); }
 .card-photo-stack { position: relative; flex: 0 0 300px; align-self: center; margin-right: 6px; }
 .card-photo-stack .card-photo { flex: none; margin-top: 0; }
 .card-photo-stack .card-logo { position: absolute; left: -26px; bottom: -4px; margin: 0; transform: rotate(-4deg); }
-/* portrait media (e.g. the drone clip) sits narrower so the card stays a sane height */
-.card-photo-stack.portrait { flex-basis: 196px; margin-right: 26px; }
-.card-photo-stack.portrait .card-photo { transform: rotate(2deg); }
-.card-photo-stack.portrait video { display: block; width: 100%; height: auto; border-radius: 15px; background: #000; }
-.mini-tile {
-  position: absolute; left: -40px; bottom: -14px; width: 92px;
-  padding: 3px; border-radius: 14px; line-height: 0;
+/* square app-icon style tile, sits inside the card like the other logos */
+.card-logo.tile {
+  width: 108px; margin-right: 138px; padding: 3px; border-radius: 16px;
   background: linear-gradient(135deg, var(--accent), var(--tan));
   box-shadow: 0 4px 12px rgba(26,63,34,.2), 0 10px 24px rgba(26,63,34,.12);
-  transform: rotate(-5deg); transition: transform .25s;
+  transform: rotate(-4deg);
 }
-.mini-tile:hover { transform: rotate(0deg) translateY(-2px); }
-.mini-tile img { display: block; width: 100%; height: auto; border-radius: 11px; }
+.card-logo.tile img { display: block; width: 100%; height: auto; border-radius: 13px; }
+/* a portrait clip taped over the card edge — keeps the card short */
+.taped-video {
+  position: absolute; top: -30px; right: -64px; width: 168px; z-index: 5;
+  padding: 3px; border-radius: 16px; line-height: 0;
+  background: linear-gradient(135deg, var(--accent), var(--tan));
+  box-shadow: 0 6px 18px rgba(26,63,34,.22), 0 16px 36px rgba(26,63,34,.14);
+  transform: rotate(3deg); transition: transform .25s;
+}
+.taped-video:hover { transform: rotate(0deg) translateY(-3px); }
+.taped-video video { display: block; width: 100%; height: auto; border-radius: 13px; background: #000; }
+.taped-video::after {
+  content: ""; position: absolute; top: -10px; left: -16px; width: 56px; height: 17px;
+  background: color-mix(in srgb, var(--accent) 38%, rgba(255,255,255,.35));
+  transform: rotate(-38deg); border-radius: 1px; box-shadow: 0 1px 1px rgba(0,0,0,.08);
+}
 
 /* ---------- projects: two-up grid, click into a README ---------- */
 .proj-grid {
@@ -348,6 +358,16 @@ h1 .serif { font-weight: 400; letter-spacing: -.02em; color: var(--accent); }
   background: var(--ink); color: var(--accent);
   border-radius: 5px; padding: 5px 9px;
 }
+/* unreleased apps: a corner flag plus a lighter, dashed card */
+.proj-soon {
+  position: absolute; right: 12px; top: 12px;
+  font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase;
+  background: var(--accent); color: var(--ink);
+  border-radius: 5px; padding: 5px 9px; font-weight: 600;
+}
+.proj.soon { border-style: dashed; }
+.proj.soon .proj-thumb img { opacity: .88; }
+.muted-visit { color: var(--muted); margin-left: auto; }
 .proj-body { display: flex; flex-direction: column; gap: 12px; padding: 20px 22px 18px; flex: 1; }
 .proj-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .proj-title { font-size: 18px; font-weight: 650; letter-spacing: -.015em; color: var(--ink); }
@@ -561,6 +581,10 @@ footer .serif { font-size: 13px; }
   .pm-stack { flex-basis: auto; width: 100%; height: auto; display: flex; flex-direction: column; gap: 18px; }
   .pm-stack .card-photo { position: static; width: 100%; max-width: 320px; }
   .card-photo-stack { flex-basis: auto; width: 100%; max-width: 320px; align-self: flex-start; margin: 8px 0 12px; }
+  /* nothing to hang off on narrow screens — bring the clip back into the flow */
+  .taped-video { position: static; transform: none; width: 170px; margin: 18px 0 0 6px; }
+  .taped-video::after { display: none; }
+  .card-logo.tile { margin-right: 0; }
   .art-rugby { display: none; }
   .pop, .pop-card { display: none; }
   .proj-grid { grid-template-columns: 1fr; }
