@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alex McConnell — v1 style mock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..600&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* ---------- palette ---------- */
+  :root {
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --font-body: "Inter", -apple-system, system-ui, sans-serif;
+    --font-serif: "Instrument Serif", Georgia, serif;
+  }
+
+  /* Moss & gold palette: #1A3F22 / #58761B / #D99201 / #905A01 (+ cream paper as the neutral) */
+  :root {
+    --accent: #d99201;   /* gold */
+    --tan: #905a01;      /* bronze — gradient partner to the gold */
+    --moss: #58761b;
+  }
+
+  html[data-theme="light"] {
+    --bg: #e8e3d5;
+    --surface: #f4f1e8;
+    --surface-2: #ece7da;
+    --ink: #1a3f22;
+    --ink-soft: #2f5037;
+    --muted: #61715f;
+    --faint: #8c9787;
+    --line: #cfc9b6;
+    --btn-bg: #1a3f22;
+    --btn-ink: #f4f1e8;
+    --frame: var(--moss);
+    --art-opacity: 0.65;
+    --card-shadow: 0 1px 2px rgba(26,63,34,.06), 0 8px 24px rgba(26,63,34,.07);
+  }
+
+  /* forest: the palette's deep green as the page itself */
+  html[data-theme="term"] {
+    --bg: #1a3f22;
+    --surface: #234a2c;
+    --surface-2: #1f4527;
+    --ink: #efe9dc;
+    --ink-soft: #d9d3c4;
+    --muted: #a9b6a2;
+    --faint: #7e9079;
+    --line: #305a39;
+    --btn-bg: #d99201;
+    --btn-ink: #1a3f22;
+    --frame: var(--accent);
+    --art-opacity: 0.4;
+    --card-shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.3);
+  }
+
+  html { --accent-ui: var(--accent); --accent-bright: var(--tan); }
+
+  /* ---------- base ---------- */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    border: 5px solid var(--frame);   /* page frame, like the ref */
+    min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  ::selection { background: var(--accent-ui); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+  .mono { font-family: var(--font-mono); }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--accent-ui);
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  section { position: relative; padding: 80px 0; }
+
+  /* ---------- dithered background art ---------- */
+  .art {
+    position: absolute; pointer-events: none; z-index: 0;
+    opacity: var(--art-opacity);
+    image-rendering: pixelated;
+  }
+  /* Trinity Campanile — top right of the hero */
+  .art-campanile {
+    top: 0; right: -50px; width: min(540px, 44vw);
+    opacity: calc(var(--art-opacity) * .8);
+    -webkit-mask-image: linear-gradient(215deg, #000 30%, transparent 78%), linear-gradient(transparent, #000 14%);
+            mask-image: linear-gradient(215deg, #000 30%, transparent 78%), linear-gradient(transparent, #000 14%);
+    -webkit-mask-composite: source-in;
+            mask-composite: intersect;
+  }
+  /* Golden Gate — bottom-left of the hero, kept clear of the Campanile on the right */
+  .art-bridge {
+    bottom: -30px; left: 20px; width: min(874px, 60vw);
+    opacity: calc(var(--art-opacity) * .6);
+    -webkit-mask-image: linear-gradient(transparent 0%, #000 22%, #000 82%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 8%, #000 58%, transparent 100%);
+            mask-image: linear-gradient(transparent 0%, #000 22%, #000 82%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 8%, #000 58%, transparent 100%);
+    -webkit-mask-composite: source-in;
+            mask-composite: intersect;
+  }
+  /* Alex mid-tackle — beside the About fact card, bleeding off the right edge */
+  .art-rugby {
+    top: 96px; right: -30px; width: min(300px, 21vw);
+    opacity: calc(var(--art-opacity) * .9);
+    -webkit-mask-image: linear-gradient(#000 58%, transparent 84%);
+            mask-image: linear-gradient(#000 58%, transparent 84%);
+  }
+  .art-corner {
+    bottom: -140px; right: -220px; width: 780px;
+    opacity: calc(var(--art-opacity) * .6);
+    -webkit-mask-image: linear-gradient(200deg, #000 40%, transparent 85%);
+            mask-image: linear-gradient(200deg, #000 40%, transparent 85%);
+  }
+  .pixel-star { position: absolute; font-family: var(--font-mono); color: var(--faint); user-select: none; pointer-events: none; }
+
+  /* ---------- nav ---------- */
+  nav { position: fixed; top: 14px; left: 0; right: 0; z-index: 40; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .nav-pill {
+    display: flex; align-items: center; justify-content: space-between; gap: 26px;
+    width: min(1040px, calc(100vw - 44px));
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 12px 12px 12px 20px;
+    box-shadow: none;
+    transition: width .7s ease-in-out, background .7s ease-in-out,
+                border-color .7s ease-in-out, box-shadow .7s ease-in-out,
+                padding .7s ease-in-out, backdrop-filter .7s ease-in-out;
+  }
+  .nav-pill.scrolled {
+    width: min(660px, calc(100vw - 44px));
+    background: color-mix(in srgb, var(--surface) 82%, transparent);
+    backdrop-filter: blur(14px);
+    border-color: var(--line);
+    box-shadow: var(--card-shadow);
+    padding: 8px 10px 8px 18px;
+  }
+  .nav-logo { font-family: var(--font-mono); font-weight: 700; font-size: 14px; letter-spacing: .06em; }
+  .nav-logo span { color: var(--accent-ui); }
+  .nav-links { display: flex; gap: 20px; }
+  .nav-links a {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent-ui); }
+  .nav-cta {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    background: var(--btn-bg); color: var(--btn-ink);
+    padding: 9px 18px; border-radius: 999px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 140px 0 80px; }
+  .hero-inner { position: relative; z-index: 1; max-width: 940px; padding: 0 24px; }
+  /* name breaks onto two lines only when it can't fit on one */
+  @media (min-width: 900px) { h1 .brk { display: none; } }
+  h1 {
+    font-size: clamp(52px, 9vw, 96px);
+    font-weight: 700; letter-spacing: -.045em; line-height: .98;
+    margin: 18px 0 22px;
+  }
+  h1 .serif { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -.02em; color: var(--accent-ui); }
+  .hero-sub { font-size: 19px; color: var(--muted); margin-bottom: 36px; }
+  .hero-sub .serif { font-family: var(--font-serif); font-style: italic; font-size: 22px; color: var(--ink); }
+
+  .btn-row { display: flex; gap: 12px; justify-content: center; margin-bottom: 34px; }
+  .btn {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    padding: 14px 26px; border-radius: 12px; position: relative; overflow: hidden;
+    transition: transform .15s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary {
+    background: var(--btn-bg); color: var(--btn-ink);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent),
+      inset 0 1px 0 rgba(255,255,255,.07),
+      0 6px 18px rgba(26,63,34,.16);
+  }
+  .btn-primary:hover { box-shadow: inset 0 0 0 1px var(--accent), inset 0 1px 0 rgba(255,255,255,.07), 0 10px 24px rgba(26,63,34,.2); }
+  html[data-theme="term"] .btn-primary {
+    box-shadow: inset 0 0 0 1px rgba(26,63,34,.35), 0 6px 18px rgba(0,0,0,.3);
+  }
+  .btn-ghost { border: 1px solid var(--line); background: var(--surface); color: var(--muted); }
+  .btn-ghost:hover { color: var(--accent-ui); border-color: var(--accent-ui); }
+
+  .hint {
+    display: inline-block; font-family: var(--font-mono); font-size: 11px; line-height: 1.7;
+    color: var(--muted); background: var(--surface);
+    border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; max-width: 430px;
+  }
+  .hover-badge {
+    font-family: var(--font-mono); font-size: 10px; color: var(--accent-ui);
+    border: 1px solid var(--accent-ui); border-radius: 5px; padding: 1px 7px;
+    background: color-mix(in srgb, var(--accent-ui) 9%, transparent);
+    white-space: nowrap;
+  }
+
+  .portrait {
+    margin: 0 auto 30px; width: 248px; border-radius: 18px;
+    padding: 3px; background: linear-gradient(135deg, var(--accent), var(--tan));
+    box-shadow: 0 8px 32px rgba(217,146,1,.28), 0 2px 8px rgba(26,63,34,.2);
+  }
+  .portrait img {
+    display: block; width: 100%; aspect-ratio: 4 / 5;
+    object-fit: cover; border-radius: 15px;
+  }
+
+  .scroll-cue { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); text-align: center; }
+  .scroll-cue .bar { width: 1px; height: 44px; margin: 0 auto 8px; background: linear-gradient(var(--accent-ui), transparent); }
+
+  /* ---------- section heading ---------- */
+  .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 56px; }
+  .sec-head .num { font-family: var(--font-mono); font-size: 12px; color: var(--accent-ui); }
+  .sec-head h2 { font-size: clamp(30px, 4.6vw, 44px); font-weight: 700; letter-spacing: -.03em; }
+  .sec-head .rule { flex: 1; height: 1px; background: var(--line); }
+
+  /* ---------- about ---------- */
+  .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 56px; position: relative; z-index: 1; }
+  .about-copy p { color: var(--ink-soft); line-height: 1.75; font-size: 15.5px; margin-bottom: 18px; }
+  .about-copy strong { color: var(--ink); }
+  .quote { font-family: var(--font-serif); font-style: italic; font-size: 18.5px; color: var(--muted); border-left: 2px solid var(--accent-ui); padding-left: 16px; margin-top: 30px; }
+  .fact-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; box-shadow: var(--card-shadow); height: fit-content; }
+  .fact { padding: 14px 0; border-bottom: 1px dashed var(--line); }
+  .fact:last-child { border-bottom: 0; }
+  .fact .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent-ui); margin-bottom: 6px; }
+  .fact .v { font-size: 14px; color: var(--ink); }
+  .fact .s { font-size: 13px; color: var(--muted); }
+
+  /* ---------- projects ---------- */
+  .cards { display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 1; }
+  .card {
+    position: relative; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 30px 32px; box-shadow: var(--card-shadow);
+    transition: border-color .25s, transform .2s;
+  }
+  .card:hover { border-color: color-mix(in srgb, var(--accent-ui) 55%, var(--line)); transform: translateY(-2px); }
+  .card::before, .card::after {
+    font-family: var(--font-mono); font-size: 11px; color: var(--faint); position: absolute;
+    content: "⁘"; transition: color .25s;
+  }
+  .card::before { top: 8px; left: 12px; }
+  .card::after  { bottom: 8px; right: 12px; }
+  .card:hover::before, .card:hover::after { color: var(--accent-ui); }
+  .card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 6px; }
+  .card h3 { font-size: 20px; font-weight: 650; letter-spacing: -.015em; }
+  .card .sub { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin: 4px 0 14px; display: flex; gap: 10px; align-items: center; }
+  .card .anno { font-family: var(--font-mono); font-size: 11px; color: var(--accent-ui); opacity: 0; transition: opacity .25s; white-space: nowrap; }
+  .card:hover .anno { opacity: 1; }
+  .card p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.7; max-width: 640px; margin-bottom: 18px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .chip {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .05em;
+    border: 1px solid var(--line); border-radius: 7px; padding: 4px 9px;
+    color: var(--muted); background: var(--surface-2);
+  }
+  .visit { margin-left: auto; font-family: var(--font-mono); font-size: 11.5px; color: var(--accent-ui); }
+  .visit:hover { text-decoration: underline; }
+
+  /* ---------- experience (same card format as projects) ---------- */
+  .card-top.tight { justify-content: flex-start; gap: 14px; }
+  .tag {
+    font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--accent-ui); border: 1px solid var(--accent-ui); border-radius: 5px; padding: 3px 9px;
+    background: color-mix(in srgb, var(--accent-ui) 8%, transparent); white-space: nowrap;
+  }
+  .tag-yc { display: inline-flex; align-items: center; gap: 6px; padding-left: 6px; }
+  .tag-yc svg { width: 13px; height: 13px; display: block; }
+  .card .sub .co { color: var(--accent-ui); }
+  .card .sub-logo { text-transform: none; letter-spacing: 0; margin: 12px 0 18px 4px; }
+  .card-split { display: flex; gap: 32px; align-items: flex-start; justify-content: space-between; }
+  .card-split > div:first-child { flex: 1; min-width: 0; }
+  /* scrapbook bits: tilted logo clipping with tape, and a slightly askew pinned photo */
+  .sticker {
+    position: relative; display: inline-block; line-height: 0;
+    transform: rotate(-2.5deg);
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(26,63,34,.22), 0 6px 14px rgba(26,63,34,.12);
+    transition: transform .25s;
+  }
+  .sticker:hover { transform: rotate(0deg) translateY(-1px); }
+  .sticker img { display: block; height: 34px; width: auto; border-radius: 4px; }
+  .sticker::after {
+    content: ""; position: absolute; top: -7px; left: -10px; width: 38px; height: 13px;
+    background: color-mix(in srgb, var(--accent) 38%, rgba(255,255,255,.35));
+    transform: rotate(-32deg); border-radius: 1px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.08);
+  }
+  /* company logos pinned to the right-hand side of a card */
+  .card-logo { flex: 0 0 auto; align-self: center; margin-right: 28px; line-height: 0; transition: transform .25s; }
+  .card-logo:hover { transform: rotate(0deg) translateY(-2px); }
+  .card-logo.seal-dark {
+    width: 150px; height: 150px; border-radius: 50%; padding: 10px;
+    background: #0d0d0d; transform: rotate(4deg);
+    box-shadow: 0 3px 8px rgba(26,63,34,.25), 0 10px 26px rgba(26,63,34,.16);
+  }
+  .card-logo.seal-dark img { width: 100%; height: 100%; display: block; }
+  .card-logo.paper {
+    position: relative; background: var(--surface); padding: 20px 28px; border-radius: 6px;
+    transform: rotate(-2deg);
+    box-shadow: 0 3px 8px rgba(26,63,34,.18), 0 10px 26px rgba(26,63,34,.1), inset 0 0 0 1px var(--line);
+  }
+  .card-logo.paper img { height: 66px; width: auto; display: block; }
+  /* two prints in a loose pile */
+  .pm-stack { position: relative; flex: 0 0 340px; height: 335px; }
+  .pm-stack .card-photo { position: absolute; width: 280px; margin: 0; }
+  .pm-stack .pm-a { top: 0; right: 0; transform: rotate(2deg); z-index: 2; }
+  .pm-stack .pm-b { bottom: 0; left: 0; transform: rotate(-3.5deg); z-index: 1; }
+  .pm-stack .card-photo:hover { z-index: 3; transform: rotate(0deg) scale(1.03); }
+  .card-photo { transition: transform .25s; }
+  /* photo with a small logo clipping pinned over its corner */
+  .card-photo-stack { position: relative; flex: 0 0 300px; align-self: center; margin-right: 6px; }
+  .card-photo-stack .card-photo { flex: none; margin-top: 0; }
+  .card-photo-stack .card-logo { position: absolute; left: -26px; bottom: -4px; margin: 0; transform: rotate(-4deg); }
+  .card-logo.paper.small { padding: 9px 13px; }
+  .card-logo.paper.small img { height: 34px; }
+  .card-logo.paper.small::after { width: 40px; height: 13px; top: -7px; right: -11px; }
+  .card-logo.paper::after {
+    content: ""; position: absolute; top: -9px; right: -14px; width: 52px; height: 16px;
+    background: color-mix(in srgb, var(--accent) 38%, rgba(255,255,255,.35));
+    transform: rotate(32deg); border-radius: 1px; box-shadow: 0 1px 1px rgba(0,0,0,.08);
+  }
+  .card-photo {
+    flex: 0 0 300px; padding: 3px; border-radius: 18px; margin-top: 4px;
+    background: linear-gradient(135deg, var(--accent), var(--tan));
+    box-shadow: 0 8px 28px rgba(217,146,1,.22), 0 2px 8px rgba(26,63,34,.2);
+    transform: rotate(1.5deg);
+  }
+  .card-photo img { display: block; width: 100%; border-radius: 15px; }
+  @media (max-width: 860px) {
+    .card-split { flex-direction: column; }
+    .card-photo { flex-basis: auto; width: 100%; max-width: 360px; }
+  }
+
+  /* ---------- skills ---------- */
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; position: relative; z-index: 1; }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 9px; margin: 18px 0 34px; }
+  .skill-chips .chip { font-size: 11.5px; padding: 8px 13px; background: var(--surface); transition: all .2s; cursor: default; }
+  .skill-chips .chip:hover { color: var(--accent-ui); border-color: var(--accent-ui); }
+  .embed { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 14px 0 26px; background: var(--surface); }
+  .interest { margin-bottom: 22px; position: relative; }
+  /* hover photos: framed, slightly askew, rise up above the item */
+  .pop {
+    position: absolute; left: 0; bottom: calc(100% + 14px); z-index: 50;
+    display: flex; gap: 16px; align-items: flex-end;
+    opacity: 0; transform: translateY(8px) scale(.97); transition: opacity .3s, transform .3s;
+    pointer-events: none;
+  }
+  .interest:hover .pop { opacity: 1; transform: none; }
+  .pop .frame {
+    display: block; padding: 3px; border-radius: 16px; line-height: 0;
+    background: linear-gradient(135deg, var(--accent), var(--tan));
+    box-shadow: 0 8px 32px rgba(217,146,1,.3), 0 2px 8px rgba(26,63,34,.25);
+  }
+  .pop .frame img { display: block; border-radius: 13px; height: auto; }
+  .pop .tilt-l { transform: rotate(-2.5deg); }
+  .pop .tilt-r { transform: rotate(3deg); }
+  .interest .h { display: flex; gap: 8px; align-items: baseline; font-size: 14.5px; font-weight: 550; }
+  .interest .h .m { font-family: var(--font-mono); font-size: 11px; color: var(--accent-ui); }
+  .interest p { font-size: 13.5px; color: var(--muted); line-height: 1.65; margin: 4px 0 0 20px; max-width: 380px; }
+  .reading { font-size: 14.5px; margin-top: 12px; }
+  .reading .book { margin-bottom: 8px; line-height: 1.5; }
+  .reading .title { font-weight: 600; }
+  .reading .auth { color: var(--muted); }
+  .reading .note { font-family: var(--font-mono); font-size: 10.5px; color: var(--faint); margin-left: 4px; white-space: nowrap; }
+  .reading .upd { font-family: var(--font-mono); font-size: 10px; color: var(--faint); margin-top: 2px; }
+
+  /* ---------- contact ---------- */
+  .contact-card {
+    position: relative; z-index: 1;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+    padding: 48px; box-shadow: var(--card-shadow); max-width: 620px;
+  }
+  .contact-card p { color: var(--ink-soft); line-height: 1.7; margin: 14px 0 30px; }
+  .contact-line { display: flex; align-items: center; gap: 14px; padding: 13px 0; border-top: 1px dashed var(--line); font-size: 14.5px; }
+  .contact-line .k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-ui); width: 52px; }
+  .contact-line a:hover { color: var(--accent-ui); }
+
+  /* ---------- footer ---------- */
+  footer { border-top: 1px solid var(--line); padding: 34px 0 42px; position: relative; z-index: 1; }
+  .foot { display: flex; justify-content: space-between; gap: 20px; align-items: baseline; flex-wrap: wrap; }
+  footer p { font-family: var(--font-mono); font-size: 11px; color: var(--faint); letter-spacing: .06em; line-height: 1.8; max-width: 460px; }
+  footer .serif { font-family: var(--font-serif); font-style: italic; font-size: 13px; }
+
+  /* ---------- mock control panel ---------- */
+  .panel {
+    position: fixed; bottom: 18px; left: 18px; z-index: 60;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 14px 16px; box-shadow: var(--card-shadow); width: 208px;
+  }
+  .panel .t { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .25em; text-transform: uppercase; color: var(--faint); margin-bottom: 10px; }
+  .swatches { display: flex; gap: 8px; margin-bottom: 12px; }
+  .sw { width: 22px; height: 22px; border-radius: 7px; border: 1px solid var(--line); display: inline-block; }
+  .themes { display: flex; gap: 6px; }
+  .th {
+    flex: 1; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+    border: 1px solid var(--line); background: var(--surface-2); color: var(--muted);
+    border-radius: 8px; padding: 6px 0; cursor: pointer;
+  }
+  .th.on { background: var(--btn-bg); color: var(--btn-ink); border-color: var(--btn-bg); }
+
+  @media (max-width: 860px) {
+    .about-grid, .skills-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .art-hero { width: 160vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- nav -->
+<nav>
+  <div class="nav-pill" id="navPill">
+    <a href="#" class="nav-logo">A.<span>McC</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="#contact">Get in touch</a>
+  </div>
+</nav>
+
+<!-- hero -->
+<section class="hero">
+  <img class="art art-campanile" src="art/campanile-dither.png" alt="" />
+  <img class="art art-bridge" src="art/bridge-dither.png" alt="" />
+
+  <div class="hero-inner">
+    <div class="portrait">
+      <img src="art/profile.jpg" alt="Alex McConnell" />
+    </div>
+    <p class="label">// portfolio</p>
+    <h1>Alex <br class="brk" />McCon<span class="serif">n</span>ell</h1>
+    <p class="hero-sub">I like to <span class="serif">build</span> things.</p>
+
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#projects">View work</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+
+    <p class="hint">👋 Anytime you see a <span class="hover-badge">hover me!</span> badge, hover over it — and 🔊 turn up your volume for maximum fun</p>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="bar"></div>
+    <p class="label" style="font-size:9px; color: var(--faint);">Scroll</p>
+  </div>
+</section>
+
+<!-- about -->
+<section id="about">
+  <img class="art art-rugby" src="art/rugby-dither.png" alt="" />
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01 //</span><h2>About</h2><span class="rule"></span></div>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>Hi! I'm Alex — previously Founding Engineer at ProvenMetal, a YC-backed startup, and currently an Engineering with Management student at Trinity College Dublin. My passion for building is driven by the impact I want to have on the world.</p>
+        <p><strong>The best way to learn something is to do it.</strong> The early days at ProvenMetal and building an EdTech startup from scratch taught me more than any lecture or textbook, and I'm always looking for the next problem worth learning that way.</p>
+        <p class="quote">"Do not be timid and squeamish about your actions. All life is an experiment. The more experiments you make the better." — Ralph Waldo Emerson</p>      </div>
+      <div class="fact-card">
+        <div class="fact"><div class="k">Experience</div><div class="v">Founding Engineer — ProvenMetal</div><div class="s">YC-backed startup</div></div>
+        <div class="fact"><div class="k">Education</div><div class="v">M.Eng Engineering with Management</div><div class="s">Trinity College Dublin</div></div>
+        <div class="fact"><div class="k">Secondary</div><div class="v">Leaving Certificate — 613 / 625</div><div class="s">98th percentile · St. Michael's College, 2023</div></div>
+        <div class="fact"><div class="k">Languages</div><div class="v">Gaeilge, English, German, Spanish</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- experience -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02 //</span><h2>Experience</h2><span class="rule"></span></div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-split">
+          <div>
+            <div class="card-top tight"><h3>Founding Engineer</h3><span class="tag tag-yc"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="3" fill="#f26522"/><path d="M7.4 5.6 12 12.6l4.6-7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="square"/><path d="M12 12.4V18.6" stroke="#fff" stroke-width="2.4" stroke-linecap="square"/></svg>YC-backed</span></div>
+            <div class="sub sub-logo"><a class="sticker" href="https://provenmetal.com" target="_blank" rel="noopener noreferrer" aria-label="ProvenMetal"><img src="art/provenmetal-logo.png" alt="ProvenMetal" /></a></div>
+            <p>Moved to San Francisco to help build ProvenMetal as one of a team of four, taking on the electronics supply chain in the US. Joined before the first dollar of revenue and saw the company grow to ~$150k, working across every part of the business along the way — sourcing software, internal tooling, customer ops and go-to-market.</p>
+            <div class="chips"><a class="visit" href="https://provenmetal.com" target="_blank" rel="noopener noreferrer">provenmetal.com ↗</a></div>
+          </div>
+          <div class="pm-stack">
+            <div class="card-photo pm-b"><img src="art/provenmetal-team-us.jpg" alt="ProvenMetal team with US flags by the Bay Bridge" /></div>
+            <div class="card-photo pm-a"><img src="art/provenmetal-team.jpg" alt="ProvenMetal team at the Golden Gate Bridge" /></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-split">
+          <div>
+            <div class="card-top tight"><h3>Director of AI Automation Solutions</h3><span class="tag">Current</span></div>
+            <div class="sub"><span class="co">Media Sphere Solutions</span> — Aug 2025 — Present</div>
+            <p>Leading the design and deployment of end-to-end AI automation solutions — intelligent voice agents for inbound reception and outbound lead qualification via Twilio, and autonomous AI-powered website auditing tools with actionable SEO performance scoring.</p>
+          </div>
+          <div class="card-logo seal-dark"><img src="art/mss-logo.png" alt="Media Sphere Solutions" /></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-split">
+          <div>
+            <div class="card-top tight"><h3>Global Corporate &amp; Investment Banking — Spring Insight</h3></div>
+            <div class="sub"><span class="co">Bank of America</span> — April 2026</div>
+            <p>Selected for a competitive spring insight programme in global corporate and investment banking.</p>
+          </div>
+          <div class="card-photo-stack">
+            <div class="card-photo"><img src="art/bofa-cohort.jpg" alt="Spring Insight cohort in London" /></div>
+            <div class="card-logo paper small"><img src="art/bofa-logo.png" alt="Bank of America" /></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top tight"><h3>Technology Hardware Analyst</h3><span class="tag">Current</span></div>
+        <div class="sub"><span class="co">Trinity Student Managed Fund</span> — Sep 2025 — Present</div>
+        <p>Analysing technology hardware equities for a student-managed portfolio with over €700k in AUM. Building DCF models, running comparable company analyses, and presenting investment theses to the fund.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top tight"><h3>Software Development Intern</h3></div>
+        <div class="sub"><span class="co">Manna Aero Drone Delivery</span> — May — Sep 2024 <span class="hover-badge">hover me!</span></div>
+        <p>Worked on optimising drone delivery operations. Wrote production code that improved system efficiency and reliability across the delivery pipeline.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- projects -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03 //</span><h2>Projects</h2><span class="rule"></span></div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-top"><h3>SmartCert.ie</h3><span class="anno">// active users, real product</span></div>
+        <div class="sub">EdTech Startup <span class="hover-badge">hover me!</span></div>
+        <p>An AI-powered Leaving Cert study platform that helps students prepare more effectively. Built from scratch as a real product, handling everything from web development to AI/LLM integration and information security.</p>
+        <div class="chips"><span class="chip">Next.js</span><span class="chip">AI/LLM</span><span class="chip">Web Dev</span><span class="chip">InfoSec</span><a class="visit" href="https://smartcert.ie" target="_blank">Visit ↗</a></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><h3>EngMang.ie</h3><span class="anno">// full-stack, production-grade</span></div>
+        <div class="sub">Community Platform <span class="hover-badge">hover me!</span></div>
+        <p>A full-stack platform for TCD Engineering Management students featuring real-time messaging, role-based access control, file storage, and SMS notifications. The whole stack, from auth to deployment.</p>
+        <div class="chips"><span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Supabase</span><span class="chip">Prisma</span><span class="chip">Pusher</span><span class="chip">Cloudflare R2</span><span class="chip">Twilio</span><span class="chip">Vercel</span><a class="visit" href="https://engmang.ie" target="_blank">Visit ↗</a></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><h3>Large-Scale SEO Intelligence Pipeline</h3><span class="anno">// 10M+ pages, 500k+ domains</span></div>
+        <div class="sub">Data Engineering</div>
+        <p>Designed and built a distributed data pipeline on Databricks that ingests and processes 10M+ web pages from Common Crawl (AWS S3) using PySpark, extracting structured SEO signals — meta tags, canonical tags, HTTPS adoption, and link profiles. Built a client comparison tool that scores any domain against web-wide benchmarks.</p>
+        <div class="chips"><span class="chip">PySpark</span><span class="chip">Databricks</span><span class="chip">Apache Spark</span><span class="chip">AWS S3</span><span class="chip">Parquet</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><h3>Black Hole Visualisation</h3><span class="anno">// custom shaders, real physics</span></div>
+        <div class="sub">Graphics &amp; Physics <span class="hover-badge">hover me!</span></div>
+        <p>This is a personal favourite. Interactive real-time black hole renderer using custom GLSL shaders. Implements ray marching, gravitational lensing, Doppler shifting, and accretion disk physics — all running at interactive frame rates on consumer hardware.</p>
+        <div class="chips"><span class="chip">Python</span><span class="chip">OpenGL</span><span class="chip">GLSL</span><span class="chip">Ray Marching</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- skills -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">04 //</span><h2>Skills &amp; Interests</h2><span class="rule"></span></div>
+    <div class="skills-grid">
+      <div>
+        <p class="label">Technical</p>
+        <div class="skill-chips">
+          <span class="chip">Python</span><span class="chip">C</span><span class="chip">MATLAB</span><span class="chip">TypeScript</span><span class="chip">GLSL</span><span class="chip">Next.js</span><span class="chip">Supabase</span><span class="chip">OpenGL</span><span class="chip">AI / LLM</span>
+        </div>
+        <p class="label">// current playlist</p>
+        <div class="embed"><iframe src="https://open.spotify.com/embed/playlist/3uPqNpJ2n7IV43nCjfTREO?utm_source=generator&theme=0" width="100%" height="152" style="border:0; display:block;" loading="lazy" allow="encrypted-media"></iframe></div>
+        <p class="label">// currently reading</p>
+        <div class="reading">
+          <div class="book"><span class="title">The Trial and Death of Socrates</span> <span class="auth">— Plato</span></div>
+          <div class="book"><span class="title">Behave</span> <span class="auth">— Robert M. Sapolsky</span></div>
+          <div class="book"><span class="title">A Practical Guide to Quantitative Finance Interviews</span> <span class="auth">— Xinfeng Zhou</span> <span class="note">aka "the Green Book"</span></div>
+          <p class="upd">Last updated: 9th September 2026</p>
+        </div>
+        <p class="label" style="margin-top: 28px;">// past favourites</p>
+        <div class="reading">
+          <div class="book"><span class="title">1984</span> <span class="auth">— George Orwell</span> <span class="hover-badge">hover me!</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="label" style="margin-bottom: 20px;">Beyond code</p>
+        <div class="interest">
+          <div class="pop">
+            <span class="frame tilt-l"><img src="art/rugby-ucd.jpg" alt="UCD rugby" style="width:230px" /></span>
+            <span class="frame tilt-r"><img src="art/rugby-belvo.jpg" alt="Post-match at Old Belvedere" style="width:170px" /></span>
+          </div>
+          <div class="h"><span class="m">//</span>Rugby <span class="hover-badge">hover me!</span></div><p>Old Belvedere RFC. UCD McCorry Cup winner. Coached at school level.</p>
+        </div>
+        <div class="interest"><div class="h"><span class="m">//</span>Music</div><p>Self-taught piano and guitar.</p></div>
+        <div class="interest"><div class="h"><span class="m">//</span>Languages</div><p>Gaeilge, English, German, and self-taught Spanish.</p></div>
+        <div class="interest"><div class="h"><span class="m">//</span>Maths Tutor</div><p>Passionate about mathematics and find teaching it incredibly rewarding. Tutor college, Leaving Cert, and Junior Cert students.</p></div>
+        <div class="interest"><div class="h"><span class="m">//</span>Juggling</div><p>Currently working up to 4 balls.</p></div>
+        <div class="interest"><div class="h"><span class="m">//</span>Poker</div><p>Always happy to take my friends' money.</p></div>
+        <div class="interest"><div class="h"><span class="m">//</span>Student2Student Mentor TCD</div><p>Selected as a Peer Mentor, managing the academic and social onboarding of students.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- contact -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">05 //</span><h2>Contact</h2><span class="rule"></span></div>
+    <div class="contact-card">
+      <p class="label">// say hello</p>
+      <p>Always happy to chat about interesting projects, opportunities, or ideas. Drop me a line.</p>
+      <div class="contact-line"><span class="k">mail</span><a href="mailto:almcconn@tcd.ie">almcconn@tcd.ie</a></div>
+      <div class="contact-line"><span class="k">in</span><a href="https://www.linkedin.com/in/alexmcconnell1002" target="_blank">LinkedIn ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <p>Alex McConnell © 2026</p>
+    <p style="text-align: right;">(Not) Made from scratch — <span class="serif">"If you wish to make an apple pie from scratch, you must first invent the universe"</span> — Carl Sagan</p>
+  </div>
+</footer>
+
+<!-- mock controls: not part of the site, just for picking a direction -->
+<div class="panel">
+  <p class="t">v1 mock — moss &amp; gold</p>
+  <div class="swatches">
+    <span class="sw" style="background:#1a3f22" title="#1A3F22"></span>
+    <span class="sw" style="background:#58761b" title="#58761B"></span>
+    <span class="sw" style="background:#d99201" title="#D99201"></span>
+    <span class="sw" style="background:#905a01" title="#905A01"></span>
+  </div>
+  <p class="t">theme</p>
+  <div class="themes">
+    <button class="th" data-t="light">Paper</button>
+    <button class="th" data-t="term">Forest</button>
+  </div>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const q = new URLSearchParams(location.search);
+  if (q.get("theme")) root.dataset.theme = q.get("theme");
+  if (q.has("flat")) {
+    const s = document.createElement("style");
+    s.textContent = ".hero { min-height: 900px; padding-top: 120px; }";
+    document.head.appendChild(s);
+  }
+  if (q.has("pops")) {
+    const s = document.createElement("style");
+    s.textContent = ".pop { opacity: 1 !important; transform: none !important; }";
+    document.head.appendChild(s);
+  }
+  if (q.get("scrollto")) {
+    root.style.scrollBehavior = "auto";
+    addEventListener("load", () => document.getElementById(q.get("scrollto"))?.scrollIntoView({ behavior: "instant" }));
+  }
+  const sync = () => {
+    document.querySelectorAll(".th").forEach(b => b.classList.toggle("on", b.dataset.t === root.dataset.theme));
+  };
+  document.querySelectorAll(".th").forEach(b => b.onclick = () => { root.dataset.theme = b.dataset.t; sync(); });
+  sync();
+
+  // nav: spread out at the top, collapses into a pill once you scroll
+  const pill = document.getElementById("navPill");
+  const onScroll = () => pill.classList.toggle("scrolled", window.scrollY > 60);
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+</script>
+</body>
+</html>

@@ -1,85 +1,43 @@
-"use client";
-
-import dynamic from "next/dynamic";
-import Image from "next/image";
-
-const BlackHole = dynamic(() => import("./BlackHole"), { ssr: false });
+/* eslint-disable @next/next/no-img-element */
+import HoverBadge from "./HoverBadge";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Black hole background */}
-      <div className="absolute inset-0 z-0">
-        <BlackHole />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/30 via-transparent to-navy" />
-      </div>
+    <section className="hero">
+      <img className="art art-campanile" src="/art/campanile-dither.png" alt="" />
+      <img className="art art-bridge" src="/art/bridge-dither.png" alt="" />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-3xl">
-        <div className="animate-fade-up">
-          <p className="font-[family-name:var(--font-heading)] text-xs tracking-[0.3em] text-copper/80 uppercase mb-6">
-            // portfolio
-          </p>
+      <div className="hero-inner">
+        <div className="portrait">
+          <img src="/art/profile.jpg" alt="Alex McConnell" width={624} height={780} />
         </div>
 
-        <h1 className="animate-fade-up delay-200 font-[family-name:var(--font-heading)] text-4xl md:text-6xl lg:text-7xl text-off-white tracking-tight mb-6 leading-tight">
-          Alex McConnell
+        <p className="label">{"// portfolio"}</p>
+        <h1>
+          Alex <br className="brk" />
+          McCon<span className="serif">n</span>ell
         </h1>
+        <p className="hero-sub">
+          I like to <span className="serif">build</span> things.
+        </p>
 
-        <div className="animate-fade-up delay-400">
-          <p className="font-[family-name:var(--font-body)] text-lg md:text-xl text-slate-light/70 mb-10 max-w-xl mx-auto">
-            I like to build things.
-          </p>
-        </div>
-
-        <div className="animate-fade-up delay-600 flex items-center justify-center gap-4">
-          <a
-            href="#projects"
-            className="font-[family-name:var(--font-heading)] text-xs tracking-wider uppercase px-6 py-3 border border-copper/60 text-copper hover:bg-copper/10 transition-colors"
-          >
-            View Work
+        <div className="btn-row">
+          <a className="btn btn-primary" href="#projects">
+            View work
           </a>
-          <a
-            href="#contact"
-            className="font-[family-name:var(--font-heading)] text-xs tracking-wider uppercase px-6 py-3 text-slate-light/60 hover:text-copper transition-colors"
-          >
-            Get in Touch
+          <a className="btn btn-ghost" href="#contact">
+            Get in touch
           </a>
         </div>
 
-        <div className="animate-fade-up delay-600 mt-8 flex justify-center">
-          <div
-            className="font-[family-name:var(--font-heading)] text-[11px] tracking-wide px-4 py-2 rounded-lg text-center max-w-sm"
-            style={{
-              background: "rgba(212,136,74,0.1)",
-              border: "1px solid rgba(212,136,74,0.25)",
-              color: "rgba(212,136,74,0.7)",
-            }}
-          >
-            👋 Anytime you see a <span style={{ background: "rgba(212,136,74,0.2)", border: "1px solid rgba(212,136,74,0.35)", borderRadius: "4px", padding: "0px 6px" }}>hover me!</span> badge, hover over it — and 🔊 turn up your volume for maximum fun
-          </div>
-        </div>
-
-        <div className="animate-fade-up delay-600 mt-6 flex justify-center">
-          <div className="rounded-full overflow-hidden shrink-0" style={{ width: 220, height: 220 }}>
-            <Image
-              src="/Profile.png"
-              alt="Alex McConnell"
-              width={220}
-              height={220}
-              className="object-cover block w-full h-full rounded-full"
-              priority
-            />
-          </div>
-        </div>
+        <p className="hint">
+          👋 Anytime you see a <HoverBadge /> badge, hover over it — and 🔊 turn up your volume for maximum fun
+        </p>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-up delay-600">
-        <div className="w-px h-12 bg-gradient-to-b from-copper/60 to-transparent mx-auto mb-2" />
-        <p className="font-[family-name:var(--font-heading)] text-[10px] text-slate/40 tracking-widest uppercase">
-          Scroll
-        </p>
+      <div className="scroll-cue">
+        <div className="bar" />
+        <p className="label">Scroll</p>
       </div>
     </section>
   );
