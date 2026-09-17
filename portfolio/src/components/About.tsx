@@ -11,13 +11,14 @@ export default function About() {
         <div className="about-grid">
           <div className="about-copy">
             <p>
-              Hi! I&apos;m Alex — an Engineering with Management student at Trinity College Dublin. My
-              passion for building is driven by the impact I want to have on the world.
+              Hi! I&apos;m Alex — previously Founding Engineer at ProvenMetal, a YC-backed startup, and
+              currently an Engineering with Management student at Trinity College Dublin. My passion for
+              building is driven by the impact I want to have on the world.
             </p>
             <p>
-              <strong>The best way to learn something is to do it.</strong> Building an EdTech startup from
-              scratch taught me more than any lecture or textbook, and I&apos;m always looking for the next
-              problem worth learning that way.
+              <strong>The best way to learn something is to do it.</strong> The early days at ProvenMetal
+              and building an EdTech startup from scratch taught me more than any lecture or textbook, and
+              I&apos;m always looking for the next problem worth learning that way.
             </p>
             <p className="quote serif">
               &ldquo;Do not be timid and squeamish about your actions. All life is an experiment. The more
@@ -26,6 +27,11 @@ export default function About() {
           </div>
 
           <div className="fact-card">
+            <div className="fact">
+              <div className="k">Experience</div>
+              <div className="v">Founding Engineer — ProvenMetal</div>
+              <div className="s">YC-backed startup</div>
+            </div>
             <div className="fact">
               <div className="k">Education</div>
               <div className="v">M.Eng Engineering with Management</div>

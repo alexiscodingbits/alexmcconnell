@@ -4,6 +4,19 @@
 import { useEffect, useRef } from "react";
 import SectionHeading from "./SectionHeading";
 
+function YCTag() {
+  return (
+    <span className="tag tag-yc">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect width="24" height="24" rx="3" fill="#f26522" />
+        <path d="M7.4 5.6 12 12.6l4.6-7" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="square" />
+        <path d="M12 12.4V18.6" stroke="#fff" strokeWidth="2.4" strokeLinecap="square" />
+      </svg>
+      YC-backed
+    </span>
+  );
+}
+
 /* Plays only while it's on screen — no reason to decode video the reader can't see. */
 function MannaMedia() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -39,6 +52,56 @@ export default function Experience() {
         <SectionHeading num="02" title="Experience" />
 
         <div className="cards">
+          {/* ProvenMetal */}
+          <div className="card">
+            <div className="card-split">
+              <div>
+                <div className="card-top tight">
+                  <h3>Founding Engineer</h3>
+                  <YCTag />
+                </div>
+                <div className="sub sub-logo">
+                  <a
+                    className="sticker"
+                    href="https://provenmetal.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="ProvenMetal"
+                  >
+                    <img src="/art/provenmetal-logo.png" alt="ProvenMetal" />
+                  </a>
+                </div>
+                <p>
+                  Joined ProvenMetal as one of a team of four, before the first dollar of revenue, taking on
+                  the electronics supply chain in the US. Spent two months in San Francisco with the team —
+                  meeting manufacturers and hardware companies, sitting in on customer conversations, and
+                  helping work out where the company should go next.
+                </p>
+                <p>
+                  Back in Dublin I kept building for them from Ireland — sourcing software, internal tooling
+                  and their web presence — as the company grew to ~$150k in revenue serving American drone
+                  and defence customers.
+                </p>
+                <div className="chips">
+                  <a className="visit" href="https://provenmetal.com" target="_blank" rel="noopener noreferrer">
+                    provenmetal.com ↗
+                  </a>
+                </div>
+              </div>
+              <div className="pm-stack">
+                <div className="card-photo pm-c">
+                  <img src="/art/provenmetal-site.jpg" alt="The ProvenMetal website" />
+                </div>
+                <div className="card-photo pm-b">
+                  <img src="/art/provenmetal-team-us.jpg" alt="ProvenMetal team with US flags by the Bay Bridge" />
+                </div>
+                <div className="card-photo pm-a">
+                  <img src="/art/provenmetal-team.jpg" alt="ProvenMetal team at the Golden Gate Bridge" />
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Media Sphere Solutions */}
           <div className="card">
             <div className="card-split">

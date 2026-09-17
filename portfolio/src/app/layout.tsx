@@ -25,11 +25,11 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   title: "Alex McConnell — Engineer & Builder",
   description:
-    "Personal site of Alex McConnell. Engineering with Management student at Trinity College Dublin. I like to build things.",
+    "Personal site of Alex McConnell. Previously Founding Engineer at ProvenMetal (YC-backed); Engineering with Management student at Trinity College Dublin. I like to build things.",
   openGraph: {
     title: "Alex McConnell — Engineer & Builder",
     description:
-      "Engineering with Management student at Trinity College Dublin. I like to build things.",
+      "Previously Founding Engineer at ProvenMetal (YC-backed). Engineering with Management student at Trinity College Dublin.",
     type: "website",
   },
 };

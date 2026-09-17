@@ -249,6 +249,8 @@ h1 .serif { font-weight: 400; letter-spacing: -.02em; color: var(--accent); }
   color: var(--accent); border: 1px solid var(--accent); border-radius: 5px; padding: 3px 9px;
   background: color-mix(in srgb, var(--accent) 8%, transparent); white-space: nowrap;
 }
+.tag-yc { display: inline-flex; align-items: center; gap: 6px; padding-left: 6px; }
+.tag-yc svg { width: 13px; height: 13px; display: block; }
 .card-split { display: flex; gap: 32px; align-items: flex-start; justify-content: space-between; }
 .card-split > div:first-child { flex: 1; min-width: 0; }
 
@@ -298,6 +300,12 @@ h1 .serif { font-weight: 400; letter-spacing: -.02em; color: var(--accent); }
 }
 .card-photo img { display: block; width: 100%; height: auto; border-radius: 15px; }
 /* three prints in a loose pile */
+.pm-stack { position: relative; flex: 0 0 358px; height: 400px; }
+.pm-stack .card-photo { position: absolute; width: 274px; margin: 0; }
+.pm-stack .pm-a { top: 0; right: 0; transform: rotate(2deg); z-index: 3; }
+.pm-stack .pm-b { top: 132px; left: 0; transform: rotate(-3.5deg); z-index: 2; }
+.pm-stack .pm-c { bottom: 0; right: 14px; transform: rotate(1.5deg); z-index: 1; }
+.pm-stack .card-photo:hover { z-index: 4; transform: rotate(0deg) scale(1.03); }
 /* photo with a small logo clipping pinned over its corner */
 .card-photo-stack { position: relative; flex: 0 0 300px; align-self: center; margin-right: 6px; }
 .card-photo-stack .card-photo { flex: none; margin-top: 0; }
@@ -570,7 +578,9 @@ footer .serif { font-size: 13px; }
   .card-split { flex-direction: column; }
   .card-photo { flex-basis: auto; width: 100%; max-width: 360px; }
   .card-logo { align-self: flex-start; margin: 8px 0 0 6px; }
-      .card-photo-stack { flex-basis: auto; width: 100%; max-width: 320px; align-self: flex-start; margin: 8px 0 12px; }
+  .pm-stack { flex-basis: auto; width: 100%; height: auto; display: flex; flex-direction: column; gap: 18px; }
+  .pm-stack .card-photo { position: static; width: 100%; max-width: 320px; }
+  .card-photo-stack { flex-basis: auto; width: 100%; max-width: 320px; align-self: flex-start; margin: 8px 0 12px; }
   /* nothing to hang off on narrow screens — bring the clip back into the flow */
   .taped-video { position: static; transform: none; width: 170px; margin: 18px 0 0 6px; }
   .taped-video::after { display: none; }

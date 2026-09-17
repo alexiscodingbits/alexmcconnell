@@ -273,6 +273,8 @@
     color: var(--accent-ui); border: 1px solid var(--accent-ui); border-radius: 5px; padding: 3px 9px;
     background: color-mix(in srgb, var(--accent-ui) 8%, transparent); white-space: nowrap;
   }
+  .tag-yc { display: inline-flex; align-items: center; gap: 6px; padding-left: 6px; }
+  .tag-yc svg { width: 13px; height: 13px; display: block; }
   .card .sub .co { color: var(--accent-ui); }
   .card .sub-logo { text-transform: none; letter-spacing: 0; margin: 12px 0 18px 4px; }
   .card-split { display: flex; gap: 32px; align-items: flex-start; justify-content: space-between; }
@@ -309,6 +311,11 @@
   }
   .card-logo.paper img { height: 66px; width: auto; display: block; }
   /* two prints in a loose pile */
+  .pm-stack { position: relative; flex: 0 0 340px; height: 335px; }
+  .pm-stack .card-photo { position: absolute; width: 280px; margin: 0; }
+  .pm-stack .pm-a { top: 0; right: 0; transform: rotate(2deg); z-index: 2; }
+  .pm-stack .pm-b { bottom: 0; left: 0; transform: rotate(-3.5deg); z-index: 1; }
+  .pm-stack .card-photo:hover { z-index: 3; transform: rotate(0deg) scale(1.03); }
   .card-photo { transition: transform .25s; }
   /* photo with a small logo clipping pinned over its corner */
   .card-photo-stack { position: relative; flex: 0 0 300px; align-self: center; margin-right: 6px; }
@@ -459,10 +466,11 @@
     <div class="sec-head"><span class="num">01 //</span><h2>About</h2><span class="rule"></span></div>
     <div class="about-grid">
       <div class="about-copy">
-        <p>Hi! I'm Alex — an Engineering with Management student at Trinity College Dublin. My passion for building is driven by the impact I want to have on the world.</p>
-        <p><strong>The best way to learn something is to do it.</strong> Building an EdTech startup from scratch taught me more than any lecture or textbook, and I'm always looking for the next problem worth learning that way.</p>
+        <p>Hi! I'm Alex — previously Founding Engineer at ProvenMetal, a YC-backed startup, and currently an Engineering with Management student at Trinity College Dublin. My passion for building is driven by the impact I want to have on the world.</p>
+        <p><strong>The best way to learn something is to do it.</strong> The early days at ProvenMetal and building an EdTech startup from scratch taught me more than any lecture or textbook, and I'm always looking for the next problem worth learning that way.</p>
         <p class="quote">"Do not be timid and squeamish about your actions. All life is an experiment. The more experiments you make the better." — Ralph Waldo Emerson</p>      </div>
       <div class="fact-card">
+        <div class="fact"><div class="k">Experience</div><div class="v">Founding Engineer — ProvenMetal</div><div class="s">YC-backed startup</div></div>
         <div class="fact"><div class="k">Education</div><div class="v">M.Eng Engineering with Management</div><div class="s">Trinity College Dublin</div></div>
         <div class="fact"><div class="k">Secondary</div><div class="v">Leaving Certificate — 613 / 625</div><div class="s">98th percentile · St. Michael's College, 2023</div></div>
         <div class="fact"><div class="k">Languages</div><div class="v">Gaeilge, English, German, Spanish</div></div>
@@ -476,6 +484,22 @@
   <div class="wrap">
     <div class="sec-head"><span class="num">02 //</span><h2>Experience</h2><span class="rule"></span></div>
     <div class="cards">
+
+      <div class="card">
+        <div class="card-split">
+          <div>
+            <div class="card-top tight"><h3>Founding Engineer</h3><span class="tag tag-yc"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="3" fill="#f26522"/><path d="M7.4 5.6 12 12.6l4.6-7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="square"/><path d="M12 12.4V18.6" stroke="#fff" stroke-width="2.4" stroke-linecap="square"/></svg>YC-backed</span></div>
+            <div class="sub sub-logo"><a class="sticker" href="https://provenmetal.com" target="_blank" rel="noopener noreferrer" aria-label="ProvenMetal"><img src="art/provenmetal-logo.png" alt="ProvenMetal" /></a></div>
+            <p>Joined ProvenMetal as one of a team of four, before the first dollar of revenue, taking on the electronics supply chain in the US. Spent two months in San Francisco with the team — meeting manufacturers and hardware companies, sitting in on customer conversations, and helping work out where the company should go next.</p>
+            <p>Back in Dublin I kept building for them from Ireland — sourcing software, internal tooling and their web presence — as the company grew to ~$150k in revenue serving American drone and defence customers.</p>
+            <div class="chips"><a class="visit" href="https://provenmetal.com" target="_blank" rel="noopener noreferrer">provenmetal.com ↗</a></div>
+          </div>
+          <div class="pm-stack">
+            <div class="card-photo pm-b"><img src="art/provenmetal-team-us.jpg" alt="ProvenMetal team with US flags by the Bay Bridge" /></div>
+            <div class="card-photo pm-a"><img src="art/provenmetal-team.jpg" alt="ProvenMetal team at the Golden Gate Bridge" /></div>
+          </div>
+        </div>
+      </div>
 
       <div class="card">
         <div class="card-split">
