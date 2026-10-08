@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import SectionHeading from "./SectionHeading";
 
 type Project = {
@@ -20,7 +20,14 @@ type Project = {
   /* README-style long form, shown in the modal */
   readme: { heading: string; body?: string; bullets?: string[] }[];
   gallery?: { src: string; alt: string; video?: boolean }[];
+  /* plays muted on the card and carries on, uninterrupted, into the modal. One project only —
+     there's a single shared <video> element */
+  video?: { src: string; poster: string };
+  /* the big "go and try it" button at the top of the modal */
+  cta?: { label: string; sub: string; href: string; icon: string };
 };
+
+const FUMBLE_SITE = "https://fumble.alexmcconnell.ie";
 
 const projects: Project[] = [
   {
@@ -30,7 +37,7 @@ const projects: Project[] = [
     year: "2026",
     tagline: "A typing coach that already knows what you're bad at.",
     tech: ["Swift", "SwiftUI", "CoreGraphics", "AppKit"],
-    link: "https://fumble.alexmcconnell.ie",
+    link: FUMBLE_SITE,
     thumb: "/art/fumble-tile.jpg",
     badge: "Out now · free",
     readme: [
@@ -57,8 +64,9 @@ const projects: Project[] = [
         body: "Shipped. v1.0.2 is out — free, open source under MIT, universal, and signed and notarised by Apple, with 185 tests green. Download it from fumble.alexmcconnell.ie or grab the source on GitHub.",
       },
     ],
+    video: { src: "/fumble/fumble-launch.mp4", poster: "/fumble/fumble-launch-poster.jpg" },
+    cta: { label: "Try Fumble — it's free", sub: "fumble.alexmcconnell.ie · macOS 14+", href: FUMBLE_SITE, icon: "/fumble/icon.png" },
     gallery: [
-      { src: "/fumble/fumble-launch.mp4", alt: "Fumble launch video", video: true },
       { src: "/fumble/screenshot-trainer.webp", alt: "Fumble trainer" },
       { src: "/fumble/screenshot-stats.webp", alt: "Fumble stats" },
     ],
@@ -268,7 +276,15 @@ const projects: Project[] = [
   },
 ];
 
-function Modal({ project, onClose }: { project: Project; onClose: () => void }) {
+function Modal({
+  project,
+  onClose,
+  videoSlot,
+}: {
+  project: Project;
+  onClose: () => void;
+  videoSlot: React.RefObject<HTMLDivElement | null>;
+}) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -300,6 +316,19 @@ function Modal({ project, onClose }: { project: Project; onClose: () => void }) 
             <p className="modal-tagline">{project.tagline}</p>
           </div>
         </div>
+
+        {project.cta && (
+          <a className="modal-cta" href={project.cta.href} target="_blank" rel="noopener noreferrer">
+            <img src={project.cta.icon} alt="" />
+            <span className="modal-cta-text">
+              <strong>{project.cta.label}</strong>
+              <small>{project.cta.sub}</small>
+            </span>
+            <span className="modal-cta-arrow" aria-hidden="true">↗</span>
+          </a>
+        )}
+
+        {project.video && <div className="modal-video" ref={videoSlot} />}
 
         <div className="chips modal-chips">
           {project.tech.map((t) => (
@@ -352,8 +381,102 @@ function Modal({ project, onClose }: { project: Project; onClose: () => void }) 
   );
 }
 
+/* real Macs only: iPhones say "like Mac OS X" (no "Macintosh"), and iPads in desktop mode say
+   Macintosh but have a touchscreen */
+const noSubscribe = () => () => {};
+function useIsMac() {
+  return useSyncExternalStore(
+    noSubscribe,
+    () => /Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints < 2,
+    () => false
+  );
+}
+
+const videoProject = projects.find((p) => p.video);
+
 export default function Projects() {
   const [open, setOpen] = useState<Project | null>(null);
+  const [muted, setMuted] = useState(true);
+  const [seen, setSeen] = useState(false);
+  const isMac = useIsMac();
+
+  /* One <video> element, created once and physically moved between the card and the modal.
+     Moving a playing element within the document doesn't stop it, so the clip never restarts. */
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const cardSlot = useRef<HTMLSpanElement | null>(null);
+  const modalSlot = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const slot = cardSlot.current;
+    if (!videoProject?.video || !slot) return;
+    const v = document.createElement("video");
+    v.src = videoProject.video.src;
+    v.poster = videoProject.video.poster;
+    v.muted = true;
+    v.loop = true;
+    v.playsInline = true;
+    v.preload = "metadata";
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+    const onVolume = () => setMuted(v.muted);
+    v.addEventListener("volumechange", onVolume);
+    slot.appendChild(v);
+    videoRef.current = v;
+
+    // play while the card is on screen; pause off screen unless they've turned the sound on
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) setSeen(true);
+        if (v.parentElement !== slot) return;
+        if (e.isIntersecting) v.play().catch(() => {});
+        else if (v.muted) v.pause();
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(slot);
+
+    return () => {
+      io.disconnect();
+      v.removeEventListener("volumechange", onVolume);
+      v.pause();
+      v.remove();
+      videoRef.current = null;
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const v = videoRef.current;
+    const inModal = !!open?.video;
+    const target = inModal ? modalSlot.current : cardSlot.current;
+    if (!v || !target || v.parentElement === target) return;
+    const wasPlaying = !v.paused;
+    target.appendChild(v);
+    v.controls = inModal; // native controls in the modal: that's where fullscreen lives
+    if (wasPlaying || inModal) v.play().catch(() => {});
+  }, [open]);
+
+  // alexmcconnell.ie/#fumble opens straight into the project — the banner links there
+  useEffect(() => {
+    const sync = () => {
+      const p = projects.find((p) => `#${p.key}` === window.location.hash);
+      if (p) setOpen(p);
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
+
+  const close = useCallback(() => {
+    setOpen(null);
+    if (window.location.hash) history.replaceState(null, "", window.location.pathname + window.location.search);
+  }, []);
+
+  const toggleSound = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    if (v.paused) v.play().catch(() => {});
+  };
 
   return (
     <section id="projects">
@@ -362,40 +485,83 @@ export default function Projects() {
 
         <div className="proj-grid">
           {projects.map((p) => (
-            <button key={p.key} className={`proj${p.comingSoon ? " soon" : ""}`} onClick={() => setOpen(p)}>
-              <span className="proj-thumb">
-                <img src={p.thumb} alt="" />
-                {p.badge && <span className="proj-badge">{p.badge}</span>}
-                {p.comingSoon && <span className="proj-soon">Coming soon</span>}
-              </span>
+            <div key={p.key} className="proj-cell">
+              <button className={`proj${p.comingSoon ? " soon" : ""}`} onClick={() => setOpen(p)}>
+                <span className="proj-thumb">
+                  {p.video ? (
+                    <span
+                      className="proj-video"
+                      ref={cardSlot}
+                      style={{ backgroundImage: `url(${p.video.poster})` }}
+                    />
+                  ) : (
+                    <img src={p.thumb} alt="" />
+                  )}
+                  {p.badge && <span className="proj-badge">{p.badge}</span>}
+                  {p.comingSoon && <span className="proj-soon">Coming soon</span>}
+                </span>
 
-              <span className="proj-body">
-                <span className="proj-top">
-                  <span className="proj-title">{p.title}</span>
-                  <span className="proj-year">{p.year}</span>
+                <span className="proj-body">
+                  <span className="proj-top">
+                    <span className="proj-title">{p.title}</span>
+                    <span className="proj-year">{p.year}</span>
+                  </span>
+                  <span className="proj-tagline">{p.tagline}</span>
+                  <span className="chips">
+                    {p.tech.slice(0, 3).map((t) => (
+                      <span key={t} className="chip">
+                        {t}
+                      </span>
+                    ))}
+                    {p.tech.length > 3 && <span className="chip">+{p.tech.length - 3}</span>}
+                  </span>
+                  <span className="proj-foot">
+                    <span className="proj-view">{p.comingSoon ? "> read more" : "> view project"}</span>
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+                      <path d="M3 9L9 3M9 3H4M9 3V8" />
+                    </svg>
+                  </span>
                 </span>
-                <span className="proj-tagline">{p.tagline}</span>
-                <span className="chips">
-                  {p.tech.slice(0, 3).map((t) => (
-                    <span key={t} className="chip">
-                      {t}
-                    </span>
-                  ))}
-                  {p.tech.length > 3 && <span className="chip">+{p.tech.length - 3}</span>}
+              </button>
+
+              {/* sits over the thumbnail, outside the card button so a click here doesn't open the modal */}
+              {p.video && (
+                <span className="proj-overlay">
+                  <button
+                    className="sound-btn"
+                    onClick={toggleSound}
+                    aria-label={muted ? "Turn sound on" : "Mute"}
+                    aria-pressed={!muted}
+                  >
+                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" />
+                      {muted ? (
+                        <path d="M13 7.5l4.5 5M17.5 7.5l-4.5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+                      ) : (
+                        <path d="M13 7a4 4 0 010 6M15.2 5a7 7 0 010 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+                      )}
+                    </svg>
+                  </button>
                 </span>
-                <span className="proj-foot">
-                  <span className="proj-view">{p.comingSoon ? "> read more" : "> view project"}</span>
-                  <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-                    <path d="M3 9L9 3M9 3H4M9 3V8" />
-                  </svg>
-                </span>
-              </span>
-            </button>
+              )}
+
+              {p.cta && isMac && (
+                <a
+                  className={`mac-note${seen ? " in" : ""}`}
+                  href={p.cta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="mac-note-hi">Hey — I see you&apos;re on a Mac 👀</span>
+                  <span className="mac-note-go">Try Fumble, it&apos;s free →</span>
+                </a>
+              )}
+            </div>
           ))}
         </div>
       </div>
 
-      {open && <Modal project={open} onClose={() => setOpen(null)} />}
+      {open && <Modal project={open} onClose={close} videoSlot={modalSlot} />}
     </section>
   );
 }

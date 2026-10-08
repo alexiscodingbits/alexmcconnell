@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useState } from "react";
 
@@ -23,11 +24,15 @@ export default function Nav() {
 
   return (
     <nav>
-      {/* what's-new banner — folds away once you scroll */}
-      <a href="#lately" className={`news-banner${scrolled ? " hidden" : ""}`} tabIndex={scrolled ? -1 : 0}>
-        <span className="news-tag">New</span>
-        <span className="news-text">
-          Fumble is out — a free typing coach for Mac. <span className="news-more">Watch the launch →</span>
+      {/* what's-new banner, in Fumble's colours rather than the site's — folds away once you scroll */}
+      <a href="#fumble" className={`fumble-bar${scrolled ? " hidden" : ""}`} tabIndex={scrolled ? -1 : 0}>
+        <img src="/fumble/icon.png" alt="" width={18} height={18} />
+        <span>
+          <em>fumble</em> is out<span className="fumble-bar-long"> — the free typing coach for Mac</span>
+          <span className="fumble-bar-short"> — free for Mac</span>
+        </span>
+        <span className="fumble-bar-arrow" aria-hidden="true">
+          ↗
         </span>
       </a>
 
