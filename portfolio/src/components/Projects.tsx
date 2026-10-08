@@ -24,6 +24,46 @@ type Project = {
 
 const projects: Project[] = [
   {
+    key: "fumble",
+    title: "Fumble",
+    subtitle: "macOS Menu-Bar App",
+    year: "2026",
+    tagline: "A typing coach that already knows what you're bad at.",
+    tech: ["Swift", "SwiftUI", "CoreGraphics", "AppKit"],
+    link: "https://fumble.alexmcconnell.ie",
+    thumb: "/art/fumble-tile.jpg",
+    badge: "Out now · free",
+    readme: [
+      {
+        heading: "What it is",
+        body: "Typing trainers make you practise synthetic letter soup and guess at what to fix. Fumble watches how you actually type all day, works out which keys and finger transitions genuinely cost you time, and drills those instead.",
+      },
+      {
+        heading: "What it does",
+        bullets: [
+          "Ranks your weak keys by seconds lost today — how much slower than your own baseline, multiplied by how often you hit them.",
+          "Separates real motor stumbles from thinking pauses using a threshold that adapts per key-transition to your own typing.",
+          "Five practice modes, including a keybr-style adaptive trainer seeded from the typing it has actually watched, with an on-screen keyboard coloured by confidence.",
+          "A speed heatmap over the keyboard, a per-app breakdown of where you type, and a trend line over time.",
+          "Counts and shows every excluded keystroke, so the words-per-minute figure is auditable rather than magic.",
+        ],
+      },
+      {
+        heading: "On privacy",
+        body: "It reads physical keycodes and never resolves them to characters, so it cannot reconstruct what you typed. No ordered sequence is ever stored, everything is dropped while a password field is focused, and the app contains no networking code at all.",
+      },
+      {
+        heading: "Status",
+        body: "Shipped. v1.0.2 is out — free, open source under MIT, universal, and signed and notarised by Apple, with 185 tests green. Download it from fumble.alexmcconnell.ie or grab the source on GitHub.",
+      },
+    ],
+    gallery: [
+      { src: "/fumble/fumble-launch.mp4", alt: "Fumble launch video", video: true },
+      { src: "/fumble/screenshot-trainer.webp", alt: "Fumble trainer" },
+      { src: "/fumble/screenshot-stats.webp", alt: "Fumble stats" },
+    ],
+  },
+  {
     key: "smartcert",
     title: "SmartCert.ie",
     subtitle: "EdTech Startup",
@@ -188,42 +228,6 @@ const projects: Project[] = [
       {
         heading: "Status",
         body: "v1.1.0, Developer ID signed with a hardened runtime, and in daily use on my own machine. Notarisation is the last step before the download goes up here.",
-      },
-    ],
-  },
-  {
-    key: "fumble",
-    title: "Fumble",
-    subtitle: "macOS Menu-Bar App",
-    year: "2026",
-    tagline: "A typing coach that already knows what you're bad at.",
-    tech: ["Swift", "SwiftUI", "CoreGraphics", "AppKit"],
-    link: null,
-    thumb: "/art/fumble-tile.jpg",
-    badge: "On-device, free",
-    comingSoon: true,
-    readme: [
-      {
-        heading: "What it is",
-        body: "Typing trainers make you practise synthetic letter soup and guess at what to fix. Fumble watches how you actually type all day, works out which keys and finger transitions genuinely cost you time, and drills those instead.",
-      },
-      {
-        heading: "What it does",
-        bullets: [
-          "Ranks your weak keys by seconds lost today — how much slower than your own baseline, multiplied by how often you hit them.",
-          "Separates real motor stumbles from thinking pauses using a threshold that adapts per key-transition to your own typing.",
-          "Five practice modes, including a keybr-style adaptive trainer seeded from the typing it has actually watched, with an on-screen keyboard coloured by confidence.",
-          "A speed heatmap over the keyboard, a per-app breakdown of where you type, and a trend line over time.",
-          "Counts and shows every excluded keystroke, so the words-per-minute figure is auditable rather than magic.",
-        ],
-      },
-      {
-        heading: "On privacy",
-        body: "It reads physical keycodes and never resolves them to characters, so it cannot reconstruct what you typed. No ordered sequence is ever stored, everything is dropped while a password field is focused, and the app contains no networking code at all.",
-      },
-      {
-        heading: "Status",
-        body: "Feature complete and in daily use, with 185 tests green and a universal, Developer ID signed build. What's left before release is validating the injected-keystroke filter against real automation tools, then notarisation and a Homebrew cask. It'll be free and MIT licensed.",
       },
     ],
   },

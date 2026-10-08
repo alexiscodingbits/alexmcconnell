@@ -23,6 +23,14 @@ export default function Nav() {
 
   return (
     <nav>
+      {/* what's-new banner — folds away once you scroll */}
+      <a href="#lately" className={`news-banner${scrolled ? " hidden" : ""}`} tabIndex={scrolled ? -1 : 0}>
+        <span className="news-tag">New</span>
+        <span className="news-text">
+          Fumble is out — a free typing coach for Mac. <span className="news-more">Watch the launch →</span>
+        </span>
+      </a>
+
       <div className={`nav-pill${scrolled ? " scrolled" : ""}`}>
         <a href="#" className="nav-logo">
           A.<span>McC</span>

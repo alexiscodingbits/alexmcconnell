@@ -9,6 +9,6 @@ When one actually ships: set `comingSoon: false` and point `link` at its downloa
 → `portfolio/src/components/Projects.tsx`
 
 - [ ] Slate — notarise, then publish
-- [ ] Fumble — validate the injected-keystroke filter, notarise, Homebrew cask
+- [x] Fumble — shipped v1.0.2, Oct 2026 (card live, launch video in the Lately section)
 - [ ] Claudometer — create the repo, cut a release, notarise
 - [ ] Fix the "notarized" claims in the Slate and Fumble READMEs — neither is, yet
