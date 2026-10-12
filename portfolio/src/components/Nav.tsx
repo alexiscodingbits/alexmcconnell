@@ -24,11 +24,13 @@ export default function Nav() {
 
   return (
     <nav>
-      {/* what's-new banner, in Fumble's colours rather than the site's — folds away once you scroll */}
+      {/* what's-new banner in the site's moss & gold, carrying the Fumble icon + wordmark — folds away once you scroll */}
       <a href="#fumble" className={`fumble-bar${scrolled ? " hidden" : ""}`} tabIndex={scrolled ? -1 : 0}>
-        <img src="/fumble/icon.png" alt="" width={18} height={18} />
-        <span>
-          <em>fumble</em> is out<span className="fumble-bar-long"> — the free typing coach for Mac</span>
+        <span className="fumble-bar-new">New</span>
+        <img src="/fumble/icon.png" alt="" width={22} height={22} />
+        <span className="fumble-bar-mark" role="img" aria-label="Fumble" />
+        <span className="fumble-bar-text">
+          is out<span className="fumble-bar-long"> — the free typing coach for Mac</span>
           <span className="fumble-bar-short"> — free for Mac</span>
         </span>
         <span className="fumble-bar-arrow" aria-hidden="true">
