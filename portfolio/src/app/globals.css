@@ -149,25 +149,30 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 40; display: flex; fl
   font-size: 9.5px; letter-spacing: .16em; padding: 2px 6px; flex: none;
 }
 .fumble-bar img { width: 22px; height: 22px; border-radius: 5px; flex: none; }
-/* the Fumble wordmark, recoloured to the site's cream */
-.fumble-bar-mark {
-  flex: none; width: 51px; height: 22px; margin-right: -2px;
-  background: var(--btn-ink);
-  -webkit-mask: url(/fumble/wordmark.png) center / contain no-repeat;
-          mask: url(/fumble/wordmark.png) center / contain no-repeat;
+/* the Fumble wordmark in its own orange→navy, on a cream chip — the navy end vanishes on moss */
+.fumble-bar-chip {
+  flex: none; display: inline-flex; align-items: center; height: 28px; padding: 0 9px 0 7px;
+  background: var(--surface); border-radius: 6px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
 }
-.fumble-bar-text { overflow: hidden; text-overflow: ellipsis; }
+.fumble-bar .fumble-bar-mark { width: auto; height: 23px; border-radius: 0; }
+.fumble-bar-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .fumble-bar-arrow { flex: none; color: var(--accent); transition: transform .2s; }
 .fumble-bar:hover .fumble-bar-text { color: var(--accent); }
-.fumble-bar:hover .fumble-bar-mark { background: var(--accent); }
 .fumble-bar:hover .fumble-bar-arrow { transform: translate(2px, -2px); }
-.fumble-bar-short { display: none; }
-@media (max-width: 560px) { .fumble-bar-long, .fumble-bar-new { display: none; } .fumble-bar-short { display: inline; } }
-.fumble-bar.hidden { max-height: 0; opacity: 0; pointer-events: none; }
+/* phones: drop the tag and icon, and let the line wrap rather than cut the sentence off */
+@media (max-width: 640px) {
+  .fumble-bar-new, .fumble-bar > img { display: none; }
+  .fumble-bar { height: auto; max-height: 80px; padding: 7px 14px; letter-spacing: .04em; white-space: normal; text-align: left; }
+  .fumble-bar-text { flex: 0 1 auto; overflow: visible; }
+}
+.fumble-bar.hidden { max-height: 0; padding-top: 0; padding-bottom: 0; border-bottom-width: 0; opacity: 0; pointer-events: none; }
 
 /* ---------- hero ---------- */
 /* height follows the content — no forced 100vh, which left dead space above and below */
 .hero { display: flex; align-items: center; justify-content: center; text-align: center; padding: 160px 0 92px; }
+/* the Campanile hangs off the right edge; clip it, or phones widen the whole page to fit it */
+.hero { overflow-x: clip; }
 .hero-inner { position: relative; z-index: 1; max-width: 940px; padding: 0 24px; }
 /* name breaks onto two lines only when it can't fit on one */
 @media (min-width: 900px) { h1 .brk { display: none; } }
