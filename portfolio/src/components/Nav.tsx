@@ -24,10 +24,8 @@ export default function Nav() {
 
   return (
     <nav>
-      {/* what's-new banner in the site's moss & gold, carrying the Fumble icon + wordmark (wordmark-on-dark.png: the same gradient, lifted so the navy end reads on moss) — folds away once you scroll */}
+      {/* what's-new banner in the site's moss & gold, carrying the Fumble wordmark (wordmark-on-dark.png: the same gradient, lifted so the navy end reads on moss) — folds away once you scroll */}
       <a href="#fumble" className={`fumble-bar${scrolled ? " hidden" : ""}`} tabIndex={scrolled ? -1 : 0}>
-        <span className="fumble-bar-new">New</span>
-        <img className="fumble-bar-icon" src="/fumble/icon.png" alt="" width={22} height={22} />
         <img className="fumble-bar-mark" src="/fumble/wordmark-on-dark.png" alt="Fumble" width={51} height={22} />
         <span className="fumble-bar-text">I made a better typing coach for mac, check it out!</span>
         <span className="fumble-bar-arrow" aria-hidden="true">
