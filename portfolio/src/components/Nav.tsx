@@ -26,10 +26,13 @@ export default function Nav() {
     <nav>
       {/* what's-new banner in the site's moss & gold, carrying the Fumble wordmark (wordmark-on-dark.png: the same gradient, lifted so the navy end reads on moss) — folds away once you scroll */}
       <a href="#fumble" className={`fumble-bar${scrolled ? " hidden" : ""}`} tabIndex={scrolled ? -1 : 0}>
-        <img className="fumble-bar-mark" src="/fumble/wordmark-on-dark.png" alt="Fumble" width={51} height={22} />
-        <span className="fumble-bar-text">I made a better typing coach for mac, check it out!</span>
-        <span className="fumble-bar-arrow" aria-hidden="true">
-          ↗
+        {/* the wordmark's letters sit on the PNG's bottom edge, so baseline alignment puts them on the text's line */}
+        <span className="fumble-bar-line">
+          <img className="fumble-bar-mark" src="/fumble/wordmark-on-dark.png" alt="Fumble" width={51} height={22} />
+          <span className="fumble-bar-text">I made a better typing coach for mac, check it out!</span>
+          <span className="fumble-bar-arrow" aria-hidden="true">
+            ↗
+          </span>
         </span>
       </a>
 

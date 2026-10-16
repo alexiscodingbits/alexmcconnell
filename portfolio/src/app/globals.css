@@ -138,17 +138,19 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 40; display: flex; fl
 .fumble-bar {
   display: flex; align-items: center; justify-content: center; gap: 10px;
   width: 100%; height: 38px; max-height: 38px; padding: 0 16px;
-  background: var(--ink); color: var(--btn-ink);
+  background: var(--ink); color: var(--accent);
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
   font-family: var(--font-mono), ui-monospace, monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
   white-space: nowrap; overflow: hidden;
   transition: max-height .45s ease, opacity .35s ease;
 }
 /* the Fumble wordmark, recoloured lighter (wordmark-on-dark.png) so it reads straight on the moss */
-.fumble-bar .fumble-bar-mark { width: auto; height: 26px; border-radius: 0; margin: 0 -2px -3px; }
-.fumble-bar-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.fumble-bar-arrow { flex: none; color: var(--accent); transition: transform .2s; }
-.fumble-bar:hover .fumble-bar-text { color: var(--accent); }
+.fumble-bar-line { display: flex; align-items: baseline; gap: 14px; min-width: 0; }
+.fumble-bar-line .fumble-bar-arrow { margin-left: -4px; }
+.fumble-bar .fumble-bar-mark { flex: none; width: auto; height: 26px; border-radius: 0; }
+.fumble-bar-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; transition: color .2s; }
+.fumble-bar-arrow { flex: none; transition: transform .2s, color .2s; }
+.fumble-bar:hover .fumble-bar-text, .fumble-bar:hover .fumble-bar-arrow { color: var(--btn-ink); }
 .fumble-bar:hover .fumble-bar-arrow { transform: translate(2px, -2px); }
 /* phones: let the line wrap rather than cut the sentence off */
 @media (max-width: 640px) {
