@@ -116,7 +116,8 @@ export default function Experience() {
                 <p>
                   Leading the design and deployment of end-to-end AI automation solutions — intelligent voice
                   agents for inbound reception and outbound lead qualification via Twilio, and autonomous
-                  AI-powered website auditing tools with actionable SEO performance scoring.
+                  AI-powered website auditing tools with actionable SEO performance scoring. Media Sphere has
+                  generated over €2.2M in revenue for its customers.
                 </p>
               </div>
               <div className="card-logo seal-dark">
