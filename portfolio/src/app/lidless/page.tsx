@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Topo from "./Topo";
+import Boil from "./Boil";
 import s from "./page.module.css";
 
 const DMG = "https://github.com/alexiscodingbits/lidless/releases/latest/download/Lidless.dmg";
@@ -23,8 +24,9 @@ export default function Lidless() {
   return (
     <main className={s.page}>
       <Topo />
+      <Boil />
       <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-        <filter id="ink"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="3" /><feDisplacementMap in="SourceGraphic" scale="3.5" xChannelSelector="R" yChannelSelector="G" /></filter>
+        <filter id="ink" x="-10%" y="-30%" width="120%" height="160%"><feTurbulence id="inkT" type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="1" /><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G" /></filter>
         <marker id="head" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L8 5L1 9" fill="none" stroke="#111" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></marker>
       </svg>
       <a className={s.home} href="/">← alexmcconnell.ie</a>
