@@ -5,8 +5,7 @@
 .hero{display:block;}.heroSq{display:none;}.hero,.heroSq{width:100%;max-width:960px;aspect-ratio:16/9;margin:0 auto -10px;border:0;background:transparent;pointer-events:none}
 .wrap{max-width:640px;margin:0 auto}
 .lead{margin:0 0 6px;font-size:21px;text-align:center}
-.cta{max-width:400px;margin:0 auto}
-.meta{font-size:15px;margin:16px 0 46px;color:#444;text-align:center}
+.meta{font-size:15px;margin:14px 0 46px;color:#444;text-align:center}
 .meta a{color:#111}
 .h2{font-size:22px;margin:34px 0 6px}
 .p{margin:0 0 12px}
@@ -14,4 +13,9 @@
 .links{margin-top:48px;font-size:16px}
 .links a{color:#111}
 @media (max-width:600px){.hero{display:none}.heroSq{display:block;aspect-ratio:1/1;margin:0 auto 8px}.lead{font-size:19px}}
-.cta{font-family:var(--font-body),system-ui,sans-serif}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px;font-family:var(--font-body),-apple-system,system-ui,sans-serif}
+.btn{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 26px;border-radius:16px;background:#1c1c1e;color:#fff;text-decoration:none;font-size:18px;font-weight:500;letter-spacing:-.2px;box-shadow:0 12px 26px rgba(0,0,0,.18),0 2px 6px rgba(0,0,0,.10);transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(0,0,0,.22),0 3px 8px rgba(0,0,0,.12)}
+.btn:active{transform:translateY(1px);box-shadow:0 4px 10px rgba(0,0,0,.18)}
+.btn svg{width:20px;height:20px;margin-top:-3px}
+.ghost{background:rgba(255,255,255,.75);color:#111;border:1px solid rgba(0,0,0,.10);box-shadow:0 10px 24px rgba(40,55,85,.10)}
