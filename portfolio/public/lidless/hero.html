@@ -6,7 +6,11 @@
 .hero{position:fixed;inset:0;--u:1vw;--cream:#fffdf6}
 .story .hero{--u:1.85vw}.square .hero{--u:1.75vw}.square .scene{--top:40%}.square .brand{--bb:9%}
 canvas{position:absolute;inset:0;width:100%;height:100%}
-.scene{position:absolute;left:50%;top:var(--top,48%);width:calc(var(--u)*29);height:calc(var(--u)*19);transform:translate(-50%,-50%);perspective:calc(var(--u)*120);filter:url(#boil)}
+.scene{position:absolute;left:50%;top:var(--top,48%);width:calc(var(--u)*29);height:calc(var(--u)*19);transform:translate(-50%,-50%);perspective:calc(var(--u)*120)}
+/* wobble each part, not the scene: Safari flattens 3D under a filtered ancestor */
+.base,.face,.shadow{filter:url(#boilP)}
+/* WebKit still mangles filtered faces inside preserve-3d: clean lines there */
+.wk .base,.wk .face,.wk .shadow{filter:none}
 .story .scene{--top:42%}
 .laptop{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(56deg) rotateZ(-28deg)}
 .base,.lid,.face,.shadow{position:absolute;inset:0;border-radius:calc(var(--u)*1.4)}
@@ -43,6 +47,7 @@ svg.zz{width:calc(var(--u)*6.4);overflow:visible}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute">
   <filter id="boil" x="-60%" y="-120%" width="220%" height="300%"><feTurbulence id="bt" type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="boilP" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence id="btP" type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
   <filter id="boil2"><feTurbulence id="bt2" type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
 </svg>
 <div class="hero"><canvas id="bg"></canvas>
@@ -62,7 +67,7 @@ svg.zz{width:calc(var(--u)*6.4);overflow:visible}
   <div class="url">free for Mac · alexmcconnell.ie/lidless</div>
 </div>
 <script>
-const Q=new URLSearchParams(location.search);const NOBG=Q.get("bg")==="0";if(NOBG){document.documentElement.style.background=document.body.style.background="transparent";document.getElementById("bg").remove();}const story=Q.get("fmt")==="story";if(story)document.body.classList.add("story");if(Q.get("fmt")==="square")document.body.classList.add("square");
+const Q=new URLSearchParams(location.search);if("GestureEvent" in window)document.body.classList.add("wk");const NOBG=Q.get("bg")==="0"||Q.get("bg")==="plain";if(NOBG){document.documentElement.style.background=document.body.style.background=Q.get("bg")==="plain"?"#efe9da":"transparent";document.getElementById("bg").remove();}const story=Q.get("fmt")==="story";if(story)document.body.classList.add("story");if(Q.get("fmt")==="square")document.body.classList.add("square");
 const cv=document.getElementById("bg")||document.createElement("canvas"),gl=cv.getContext("webgl",{preserveDrawingBuffer:true});
 const FS=`precision highp float;uniform vec2 r;uniform float t;uniform vec2 mc,ms;
 float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
@@ -82,7 +87,7 @@ gl.uniform2fv(gl.getUniformLocation(pr,"mc"),story?[.5,.45]:[.5,.34]);gl.uniform
 const ur=gl.getUniformLocation(pr,"r"),ut=gl.getUniformLocation(pr,"t");
 function draw(t){const d=Math.min(devicePixelRatio,2),w=innerWidth*d|0,hh=innerHeight*d|0;if(cv.width!==w||cv.height!==hh){cv.width=w;cv.height=hh}
  gl.viewport(0,0,w,hh);gl.uniform2f(ur,w,hh);gl.uniform1f(ut,20+t);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);}
-function seed(t){const s=Math.floor(t/.14)%3+1;document.getElementById("bt").setAttribute("seed",s);document.getElementById("bt2").setAttribute("seed",s)}
+function seed(t){const s=Math.floor(t/.14)%3+1;document.getElementById("bt").setAttribute("seed",s);document.getElementById("bt2").setAttribute("seed",s);document.getElementById("btP").setAttribute("seed",s)}
 window.setT=t=>{document.getAnimations().forEach(a=>{a.pause();a.currentTime=(t*1000)%6000});seed(t);draw(t)};
 if(Q.get("t")!==null)setT(+Q.get("t"));
 else{const t0=performance.now();(function f(){const t=(performance.now()-t0)/1000;draw(t);requestAnimationFrame(f)})();setInterval(()=>seed((performance.now()-t0)/1000),140);}
