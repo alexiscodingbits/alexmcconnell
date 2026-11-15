@@ -31,6 +31,32 @@ const FUMBLE_SITE = "https://fumble.alexmcconnell.ie";
 
 const projects: Project[] = [
   {
+    key: "lidless",
+    title: "Lidless",
+    subtitle: "macOS Menu-Bar App",
+    year: "2026",
+    tagline: "Close the lid. It stays awake.",
+    tech: ["Swift", "AppKit", "pmset"],
+    link: "/lidless",
+    thumb: "/art/lidless-tile.jpg",
+    badge: "New · free",
+    readme: [
+      {
+        heading: "What it is",
+        body: "A switch in your Mac's menu bar. Click it and your Mac stays awake, even with the lid shut. Click it again and it sleeps like normal.",
+      },
+      {
+        heading: "How it works",
+        body: "It flips pmset disablesleep, which is the one setting that also covers the lid. The first click asks for your password once and installs a sudoers rule allowing only those two exact commands. After that every click is instant.",
+      },
+      {
+        heading: "Status",
+        body: "Out now. Free, open source under MIT, about 200 KB.",
+      },
+    ],
+    cta: { label: "Get Lidless — it's free", sub: "alexmcconnell.ie/lidless · macOS 13+", href: "/lidless", icon: "/lidless/icon.png" },
+  },
+  {
     key: "fumble",
     title: "Fumble",
     subtitle: "macOS Menu-Bar App",
