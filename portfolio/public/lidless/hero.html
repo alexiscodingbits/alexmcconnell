@@ -1,0 +1,89 @@
+<!doctype html>
+<!-- Lidless hero, "hand-drawn" style. ?fmt=wide|story  ?t=SECONDS freezes a frame. window.setT(t) for frame-exact capture. -->
+<html><head><meta charset="utf-8"><title>Lidless</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#efe9da;overflow:hidden}
+.hero{position:fixed;inset:0;--u:1vw;--cream:#fffdf6}
+.story .hero{--u:1.85vw}.square .hero{--u:1.75vw}.square .scene{--top:40%}.square .brand{--bb:9%}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+.scene{position:absolute;left:50%;top:var(--top,48%);width:calc(var(--u)*29);height:calc(var(--u)*19);transform:translate(-50%,-50%);perspective:calc(var(--u)*120);filter:url(#boil)}
+.story .scene{--top:42%}
+.laptop{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(56deg) rotateZ(-28deg)}
+.base,.lid,.face,.shadow{position:absolute;inset:0;border-radius:calc(var(--u)*1.4)}
+.lid{transform-style:preserve-3d;transform-origin:50% 0;animation:lid 6s infinite}
+.face{backface-visibility:hidden;display:flex;align-items:center;justify-content:center}
+.face.inner{transform:rotateY(180deg) rotateZ(180deg)}
+.face.outer{transform:translateZ(calc(var(--u)*.6))}
+@keyframes lid{0%,10%{transform:rotateX(102deg)}30%{transform:rotateX(0deg);animation-timing-function:ease-out}31%,85%{transform:rotateX(0deg)}100%{transform:rotateX(102deg)}}
+.eye{width:46%;overflow:visible}
+.ball{transform-box:fill-box;transform-origin:center;animation:open 6s infinite}
+@keyframes open{0%,38%{transform:scaleY(.06)}42%{transform:scaleY(1.12)}44%,81%{transform:scaleY(1)}84%,100%{transform:scaleY(.06)}}
+.pup{animation:look 6s infinite}
+@keyframes look{0%,46%{transform:translateX(0)}50%,58%{transform:translateX(-14px)}62%,70%{transform:translateX(14px)}74%,100%{transform:translateX(0)}}
+.lash{animation:lash 6s infinite}
+@keyframes lash{0%,38%{opacity:1}41%,82%{opacity:0}84%,100%{opacity:1}}
+.keys{position:absolute;inset:14% 10% 34%;z-index:1;background:repeating-linear-gradient(90deg,#111 0 2px,transparent 2px 10%),repeating-linear-gradient(#111 0 2px,transparent 2px 25%);outline:2px solid #111}
+.pad{position:absolute;left:36%;right:36%;bottom:8%;height:20%;z-index:1;border:2px solid #111}
+.base{background:var(--cream);box-shadow:0 0 0 calc(var(--u)*.45) #111}
+.face.outer{background:var(--cream);box-shadow:0 0 0 calc(var(--u)*.45) #111}
+.face.inner{background:#111;box-shadow:0 0 0 calc(var(--u)*.45) #111,inset 0 0 0 calc(var(--u)*1) var(--cream),inset 0 0 0 calc(var(--u)*1.4) #111}
+.shadow{transform:translate(calc(var(--u)*1.3),calc(var(--u)*1.3));background:repeating-linear-gradient(40deg,#111 0 1.6px,transparent 1.6px 6px)}
+.screenmoon{width:30%}
+.brand{position:absolute;left:0;right:0;bottom:var(--bb,7%);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1)}
+.story .brand{--bb:24%}
+@keyframes brand{0%,40%{opacity:0;transform:translateY(calc(var(--u)*1))}48%,84%{opacity:1;transform:none}92%,100%{opacity:0}}
+.row{display:flex;align-items:center;gap:calc(var(--u)*1.6)}
+svg.zz{width:calc(var(--u)*6.4);overflow:visible}
+.zz .slash{stroke-dasharray:100 130;stroke-dashoffset:115;animation:slash 6s infinite}
+@keyframes slash{0%,27%{stroke-dashoffset:115;animation-timing-function:ease-in}31%,86%{stroke-dashoffset:0;animation-timing-function:ease-in}92%,100%{stroke-dashoffset:115}}
+.wm{font:bold calc(var(--u)*6)/1 "Times New Roman",serif;color:#111;letter-spacing:-.02em;filter:url(#boil2)}
+.tg{font:italic calc(var(--u)*2) "Times New Roman",serif;color:#111}
+.url{display:none;position:absolute;left:0;right:0;bottom:12%;text-align:center;font:calc(var(--u)*1.7) "Courier New",monospace;color:#111;letter-spacing:.04em}
+.story .url{display:block}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="boil" x="-60%" y="-120%" width="220%" height="300%"><feTurbulence id="bt" type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="boil2"><feTurbulence id="bt2" type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+<div class="hero"><canvas id="bg"></canvas>
+  <div class="scene"><div class="laptop">
+    <div class="shadow"></div>
+    <div class="base"><div class="keys"></div><div class="pad"></div></div>
+    <div class="lid">
+      <div class="face inner"><svg class="screenmoon" viewBox="0 0 100 100"><path d="M58 18a34 34 0 1 0 26 52a28 28 0 1 1 -26 -52z" fill="none" stroke="#fffdf6" stroke-width="6" stroke-linejoin="round"/><path d="M70 22h12l-12 13h12" fill="none" stroke="#fffdf6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="face outer"><svg class="eye" viewBox="-60 -36 120 72"><g class="ball"><path d="M-54 0 Q0 -46 54 0 Q0 46 -54 0z" fill="#fffdf6" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+        <g class="pup"><circle r="17" fill="#fffdf6" stroke="#111" stroke-width="4"/><circle r="8" fill="#111"/><circle cx="5" cy="-6" r="3.5" fill="#fffdf6"/></g></g>
+        <path class="lash" d="M-50 0 Q0 22 50 0 M-30 9 l-6 10 M0 12 v12 M30 9 l6 10" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/></svg></div>
+    </div>
+  </div></div>
+  <div class="brand"><div class="row">
+    <svg class="zz" viewBox="0 0 100 100"><g fill="none" stroke="#111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M44 32a31 31 0 1 0 26 40a24 24 0 1 1 -26 -40z"/><path d="M64 12h15L64 28h15"/><path d="M84 2h10L84 13h10"/></g><path class="slash" pathLength="100" d="M6 96L96 6" stroke="#e0301e" stroke-width="8" stroke-linecap="round"/></svg>
+    <div class="wm">Lidless</div></div><div class="tg">Close the lid. It stays awake.</div></div>
+  <div class="url">free for Mac · alexmcconnell.ie/lidless</div>
+</div>
+<script>
+const Q=new URLSearchParams(location.search);const NOBG=Q.get("bg")==="0";if(NOBG){document.documentElement.style.background=document.body.style.background="transparent";document.getElementById("bg").remove();}const story=Q.get("fmt")==="story";if(story)document.body.classList.add("story");if(Q.get("fmt")==="square")document.body.classList.add("square");
+const cv=document.getElementById("bg")||document.createElement("canvas"),gl=cv.getContext("webgl",{preserveDrawingBuffer:true});
+const FS=`precision highp float;uniform vec2 r;uniform float t;uniform vec2 mc,ms;
+float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+1.),f.x),f.y);}
+float fbm(vec2 p){float v=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<4;i++){v+=a*n(p);p=m*p;a*=.45;}return v;}
+float fbm3(vec2 p){float v=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<3;i++){v+=a*n(p);p=m*p;a*=.45;}return v;}
+float F(vec2 p){vec2 q=vec2(fbm3(p+t*.03),fbm3(p+vec2(4.2,1.1)-t*.025));return fbm(p+1.7*q);}
+void main(){float S=min(r.x,r.y);vec2 p=gl_FragCoord.xy/S*1.3;float e=1.3/S;float a=F(p);float N=17.;float v=a*N;
+ float g=length(vec2(F(p+vec2(e,0.))*N-v,F(p+vec2(0.,e))*N-v))+1e-4;float fv=fract(v);float d=min(fv,1.-fv)/g;
+ float k=floor(v+.5);float mj=mod(k,5.)<.5?1.:0.;float ln=1.-smoothstep(.5,1.5+mj,d);
+ vec2 cc=(gl_FragCoord.xy-mc*r)/S;float mk=mix(.08,1.,smoothstep(.22,.6,length(cc*ms)));
+ gl_FragColor=vec4(mix(vec3(.937,.914,.855),vec3(.07),ln*(.45+.55*mj)*mk),1.);}`;
+const mk=(ty,s)=>{const o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);return o};
+const pr=gl.createProgram();gl.attachShader(pr,mk(gl.VERTEX_SHADER,"attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}"));gl.attachShader(pr,mk(gl.FRAGMENT_SHADER,FS));gl.linkProgram(pr);gl.useProgram(pr);
+gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+gl.uniform2fv(gl.getUniformLocation(pr,"mc"),story?[.5,.45]:[.5,.34]);gl.uniform2fv(gl.getUniformLocation(pr,"ms"),story?[1.,.62]:[.7,.8]);
+const ur=gl.getUniformLocation(pr,"r"),ut=gl.getUniformLocation(pr,"t");
+function draw(t){const d=Math.min(devicePixelRatio,2),w=innerWidth*d|0,hh=innerHeight*d|0;if(cv.width!==w||cv.height!==hh){cv.width=w;cv.height=hh}
+ gl.viewport(0,0,w,hh);gl.uniform2f(ur,w,hh);gl.uniform1f(ut,20+t);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);}
+function seed(t){const s=Math.floor(t/.14)%3+1;document.getElementById("bt").setAttribute("seed",s);document.getElementById("bt2").setAttribute("seed",s)}
+window.setT=t=>{document.getAnimations().forEach(a=>{a.pause();a.currentTime=(t*1000)%6000});seed(t);draw(t)};
+if(Q.get("t")!==null)setT(+Q.get("t"));
+else{const t0=performance.now();(function f(){const t=(performance.now()-t0)/1000;draw(t);requestAnimationFrame(f)})();setInterval(()=>seed((performance.now()-t0)/1000),140);}
+</script></body></html>
