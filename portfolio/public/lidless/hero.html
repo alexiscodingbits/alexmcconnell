@@ -4,9 +4,9 @@
 <style>
 *{box-sizing:border-box}html,body{margin:0;height:100%;background:#efe9da;overflow:hidden}
 .hero{position:fixed;inset:0;--u:1vw;--cream:#fffdf6}
-.story .hero{--u:1.85vw}.square .hero{--u:1.75vw}.square .scene{--top:40%}.square .brand{--bb:9%}
+.story .hero{--u:1.85vw}.square .hero{--u:1.55vw}.square .scene{--top:49%}.square .brand{--bb:9%}
 canvas{position:absolute;inset:0;width:100%;height:100%}
-.scene{position:absolute;left:50%;top:var(--top,48%);width:calc(var(--u)*29);height:calc(var(--u)*19);transform:translate(-50%,-50%);perspective:calc(var(--u)*120)}
+.scene{position:absolute;left:50%;top:var(--top,50%);width:calc(var(--u)*29);height:calc(var(--u)*19);transform:translate(-50%,-50%);perspective:calc(var(--u)*120)}
 /* wobble each part, not the scene: Safari flattens 3D under a filtered ancestor */
 .base,.face,.shadow{filter:url(#boilP)}
 /* WebKit still mangles filtered faces inside preserve-3d: clean lines there */
