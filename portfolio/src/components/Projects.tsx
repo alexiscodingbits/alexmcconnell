@@ -571,7 +571,7 @@ export default function Projects() {
                 </span>
               )}
 
-              {p.cta && isMac && (
+              {p.key === "fumble" && p.cta && isMac && (
                 <a
                   className={`mac-note${seen ? " in" : ""}`}
                   href={p.cta.href}
