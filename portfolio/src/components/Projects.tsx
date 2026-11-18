@@ -575,11 +575,10 @@ export default function Projects() {
                 <a
                   className={`mac-note${seen ? " in" : ""}`}
                   href={p.cta.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(p.cta.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 >
                   <span className="mac-note-hi">Hey — I see you&apos;re on a Mac 👀</span>
-                  <span className="mac-note-go">Try Fumble, it&apos;s free →</span>
+                  <span className="mac-note-go">Try {p.title}, it&apos;s free →</span>
                 </a>
               )}
             </div>
